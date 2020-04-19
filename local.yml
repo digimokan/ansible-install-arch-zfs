@@ -1,4 +1,4 @@
-- hosts: 127.0.0.1
+- hosts: localhost
   connection: local
   become: true
   tasks:
@@ -6,4 +6,5 @@
     pacman:
       name: htop
       state: present
+  - debug: msg="{{ hostvars[inventory_hostname]["ansible_devices"] | select('match', '^sd.?$') | list }}"
 
