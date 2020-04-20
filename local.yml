@@ -3,7 +3,7 @@
   become: true
   vars_prompt:
     - name: "install_drive"
-      prompt: "Enter Installation Drive (e.g. \"sda\")"
+      prompt: "Enter Installation Drive (e.g. sda)"
       private: no
   tasks:
   - name: Install htop
