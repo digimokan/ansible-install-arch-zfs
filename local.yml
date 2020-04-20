@@ -2,7 +2,7 @@
   connection: local
   become: true
   vars_prompt:
-    - name: "install_drive"
+    - name: install_drive
       prompt: "Enter Installation Drive (e.g. sda)"
       default: "sda"
       private: yes
