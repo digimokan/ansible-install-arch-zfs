@@ -5,7 +5,7 @@
     - name: "install_drive"
       prompt: "Enter Installation Drive (e.g. sda)"
       default: "sda"
-      private: no
+      private: yes
   tasks:
   - name: Install htop
     pacman:
