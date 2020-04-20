@@ -11,4 +11,5 @@
     pacman:
       name: htop
       state: present
+  - debug: msg={{ install_drive }}
 
