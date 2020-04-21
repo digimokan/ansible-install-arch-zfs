@@ -10,7 +10,7 @@
       pacman:
         name: htop
         state: present
-    - name: "Add GPT boot partition"
+    - name: "Add boot partition"
       parted:
         device: /dev/{{ install_drive }}
         label: gpt
@@ -19,5 +19,15 @@
         part_end: 2MB
         part_type: primary
         flags: [ bios_grub ]
+        state: present
+    - name: "Add zfs partition"
+      parted:
+        device: /dev/{{ install_drive }}
+        label: gpt
+        number: 2
+        part_start: 2MB
+        part_end: 100%
+        part_type: primary
+        flags: [ boot ]
         state: present
 
