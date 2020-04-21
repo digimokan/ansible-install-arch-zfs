@@ -17,7 +17,7 @@
         number: 1
         part_start: 0%
         part_end: 2MB
-        part_type: boot_partition
+        part_type: primary
         flags: [ bios_grub ]
         state: present
 
