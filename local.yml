@@ -6,9 +6,12 @@
       prompt: "Enter Installation Drive (e.g. sda)"
       private: no
   tasks:
-  - name: Install htop
-    pacman:
-      name: htop
-      state: present
-  - debug: msg={{ install_drive }}
+    - name: "Install htop"
+      pacman:
+        name: htop
+        state: present
+    - name: "Partition single drive"
+      parted:
+        device: /dev/{{ install_drive }}
+        label: gpt
 
