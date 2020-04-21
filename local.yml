@@ -10,8 +10,14 @@
       pacman:
         name: htop
         state: present
-    - name: "Partition single drive"
+    - name: "Add GPT boot partition"
       parted:
         device: /dev/{{ install_drive }}
         label: gpt
+        number: 1
+        part_start: 0%
+        part_end: 2MB
+        part_type: boot_partition
+        flags: [ bios_grub ]
+        state: present
 
