@@ -17,7 +17,7 @@
         number: 1
         part_start: 0%
         part_end: 2MB
-        part_type: primary
+        name: "boot_partition"
         flags: [ bios_grub ]
         state: present
     - name: "Add zfs partition"
@@ -27,7 +27,7 @@
         number: 2
         part_start: 2MB
         part_end: 100%
-        part_type: primary
+        name: "zfs_partition"
         flags: [ boot ]
         state: present
 
