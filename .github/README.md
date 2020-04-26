@@ -26,13 +26,13 @@ Base the _ansible_ script on the official Arch Linux
 ## Features
 
 * Installs Arch Linux to single hard drive, or two mirrored drives.
-* On Completion, the machine will boot a minimal Arch Linux OS running the
+* On Completion, the new machine will boot a minimal Arch Linux OS running the
   stable zfs kernel.
 
 ## Requirements
 
 * A new machine with one (or two, for mirrored setup) empty (or formatable) hard
-  drive(s): the target for the Arch Linux install.
+  drive(s).
 * A USB stick with a bootable _archiso_ image, and these _archiso_ additions:
     1. A zfs kernel package (e.g. `archzfs-linux`), loadable with
        `modprobe zfs`.
@@ -62,7 +62,7 @@ Base the _ansible_ script on the official Arch Linux
 6. Run the ansible script:
 
    ```shell
-   # ansible-playbook -i hosts local.yml
+   # ansible-playbook -i hosts playbook.yml
    ```
 
 ## Full Usage / Options
@@ -86,7 +86,7 @@ Base the _ansible_ script on the official Arch Linux
 │ │ └── main.cpp
 │ │
 │ ├── hosts               # ansible inventory (configured for local host)
-│ └── local.yml           # main ansible playbook
+│ └── playbook.yml        # main ansible playbook
 │
 ```
 
