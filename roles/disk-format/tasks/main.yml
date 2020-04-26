@@ -1,26 +1,40 @@
-- name: "Reformat disk with GPT: add GRUB and zfs paritions"
-  parted:
-    device: "/dev/{{ disk_format_install_drive }}"
-    label: gpt
-    number: "{{ item.number }}"
-    part_start: "{{ item.part_start }}"
-    part_end:  "{{ item.part_end }}"
-    name: "{{ item.part_label }}"
-    flags: "{{ item.part_flags_and_codes }}"
+- name: "Install gptfdisk package"
+  pacman:
+    name: gptfdisk
     state: present
-  loop:
-    - {
-        number: 1,
-        part_start: 0%,
-        part_end: 2MB,
-        part_label: "boot_partition",
-        part_flags_and_codes: [ bios_grub ],
-      }
-    - {
-        number: 2,
-        part_start: 2MB,
-        part_end: 100%,
-        part_label: "zfs_partition",
-        part_flags_and_codes: [ boot ],
-      }
+- name: "Erase disk, including part-table and partitions"
+  command: sgdisk --zap-all {{ disk_format_install_drive|quote }}
+- name: "Write new GPT partition table to disk"
+  command: sgdisk --mbrtogpt {{ disk_format_install_drive|quote }}
+- name: "Add GRUB bootloader partition to disk"
+  # gdisk-specific partition type code is "BIOS boot partition"
+  command: sgdisk --new=1:0:2M --typecode=1:EF02 --change-name=1:boot_partition {{ disk_format_install_drive|quote }}
+- name: "Add zfs partition to disk"
+  # gdisk-specific partition type code is "Solaris X86"
+  command: sgdisk --new=2:2M:0 --typecode=2:BF01 --change-name=2:boot_partition {{ disk_format_install_drive|quote }}
+
+  # parted:
+  #   device: "/dev/{{ disk_format_install_drive }}"
+  #   label: gpt
+  #   number: "{{ item.number }}"
+  #   part_start: "{{ item.part_start }}"
+  #   part_end:  "{{ item.part_end }}"
+  #   name: "{{ item.part_label }}"
+  #   flags: "{{ item.part_flags_and_codes }}"
+  #   state: present
+  # loop:
+  #   - {
+  #       number: 1,
+  #       part_start: 0%,
+  #       part_end: 2MB,
+  #       part_label: "boot_partition",
+  #       part_flags_and_codes: [ bios_grub ],
+  #     }
+  #   - {
+  #       number: 2,
+  #       part_start: 2MB,
+  #       part_end: 100%,
+  #       part_label: "zfs_partition",
+  #       part_flags_and_codes: [ boot ],
+  #     }
 
