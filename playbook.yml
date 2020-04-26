@@ -5,7 +5,6 @@
     - name: disk_format_install_drive
       prompt: "Enter Installation Drive (e.g. sda)"
       private: no
-      confirm: yes
   roles:
     - disk-format
 
