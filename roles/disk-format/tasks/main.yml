@@ -2,20 +2,24 @@
   pacman:
     name: gptfdisk
     state: present
+
 - name: "Erase disk, including part-table and partitions"
   command: sgdisk --zap-all /dev/{{ disk_format_install_drive|quote }}
+
 - name: "Write new GPT partition table to disk"
   command: sgdisk --mbrtogpt /dev/{{ disk_format_install_drive|quote }}
+
 - name: "Add GRUB bootloader partition to disk"
-  # gdisk-specific partition type code is "BIOS Boot Partition"
   command: sgdisk --new 1:0:2M
+                  # gdisk-specific part type code is "BIOS Boot Partition"
                   --typecode 1:EF02
-                  --change-name 1:boot_partition
+                  --change-name 1:{{ boot_partition_label|quote }}
                   /dev/{{ disk_format_install_drive|quote }}
+
 - name: "Add zfs partition to disk"
-  # gdisk-specific partition type code is "Solaris Root"
   command: sgdisk --new 2:0:0
+                  # gdisk-specific part type code is "Solaris Root"
                   --typecode 2:BF00
-                  --change-name 2:zfs_partition
+                  --change-name 2:{{ zfs_partition_label|quote }}
                   /dev/{{ disk_format_install_drive|quote }}
 

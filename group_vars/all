@@ -1,0 +1,3 @@
+boot_partition_label: "boot_partition"
+zfs_partition_label: "zfs_partition"
+
