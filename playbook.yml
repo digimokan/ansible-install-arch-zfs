@@ -7,4 +7,5 @@
       private: no
   roles:
     - disk-format
+    - pool-creation
 

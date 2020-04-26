@@ -1,0 +1,5 @@
+- name: "Load the zfs kernel module"
+  modprobe:
+    name: zfs
+    state: present
+
