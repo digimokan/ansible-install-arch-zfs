@@ -3,7 +3,7 @@
     name: gptfdisk
     state: present
 - name: "Erase disk, including part-table and partitions"
-  command: sgdisk --zap-all "{{ disk_format_install_drive }}"
+  command: sgdisk --zap-all /dev/{{ disk_format_install_drive|quote }}
 # - name: "Write new GPT partition table to disk"
 #   command: sgdisk --mbrtogpt {{ disk_format_install_drive|quote }}
 # - name: "Add GRUB bootloader partition to disk"
