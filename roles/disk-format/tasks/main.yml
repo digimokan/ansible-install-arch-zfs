@@ -10,17 +10,17 @@
     state: present
   loop:
     - {
-        number: 1
-        part_start: 0%
-        part_end: 2MB
-        part_label: "boot_partition"
-        part_flags_and_codes: [ bios_grub ]
+        number: 1,
+        part_start: 0%,
+        part_end: 2MB,
+        part_label: "boot_partition",
+        part_flags_and_codes: [ bios_grub ],
       }
     - {
-        number: 2
-        part_start: 2MB
-        part_end: 100%
-        part_label: "zfs_partition"
-        part_flags_and_codes: [ boot ]
+        number: 2,
+        part_start: 2MB,
+        part_end: 100%,
+        part_label: "zfs_partition",
+        part_flags_and_codes: [ boot ],
       }
 
