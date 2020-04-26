@@ -1,20 +1,26 @@
-- name: "Add boot partition"
+- name: "Reformat disk with GPT: add GRUB and zfs paritions"
   parted:
     device: "/dev/{{ disk_format_install_drive }}"
     label: gpt
-    number: 1
-    part_start: 0%
-    part_end: 2MB
-    name: "boot_partition"
-    flags: [ bios_grub ]
+    number: "{{ item.number }}"
+    part_start: "{{ item.part_start }}"
+    part_end:  "{{ item.part_end }}"
+    name: "{{ item.part_label }}"
+    flags: "{{ item.part_flags_and_codes }}"
     state: present
-- name: "Add zfs partition"
-  parted:
-    device: "/dev/{{ disk_format_install_drive }}"
-    label: gpt
-    number: 2
-    part_start: 2MB
-    part_end: 100%
-    name: "zfs_partition"
-    flags: [ boot ]
-    state: present
+  loop:
+    - {
+        number: 1
+        part_start: 0%
+        part_end: 2MB
+        part_label: "boot_partition"
+        part_flags_and_codes: [ bios_grub ]
+      }
+    - {
+        number: 2
+        part_start: 2MB
+        part_end: 100%
+        part_label: "zfs_partition"
+        part_flags_and_codes: [ boot ]
+      }
+
