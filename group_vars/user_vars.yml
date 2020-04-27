@@ -1,0 +1,15 @@
+################################################################################
+# user variables
+# These placeholder vars should be overridden, using one of these methods:
+#   1. modify this file directly
+#   2. name overriding vars file on cmd line with -e user_vars_file=/path/to/vars.yml
+#   3. specify directly in cmd line with -e user_var_device_1=sda -e user_var_device_2=sdb -e ...
+################################################################################
+
+# disks to install Arch Linux to on new machine
+# device should be "sda", "sdb", etc
+# specify device_1 always
+# specify device_2 for a two-disk, mirrored installation
+user_var_device_1: none
+user_var_device_2: none
+

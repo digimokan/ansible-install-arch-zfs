@@ -1,0 +1,8 @@
+################################################################################
+# default variables: placeholders - should mostly override when using the role
+################################################################################
+
+# disks to install Arch Linux to (device_2 is for mirrored install)
+disk_format_def_device_1: sda
+disk_format_def_device_2: sdb
+
