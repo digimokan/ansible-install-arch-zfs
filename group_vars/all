@@ -1,3 +1,6 @@
-boot_partition_label: "boot_partition"
-zfs_partition_label: "zfs_partition"
+gvar_boot_partition_label: "boot_partition"
+gvar_zfs_partition_label: "zfs_partition"
+gvar_boot_partition_size: 2M
+gvar_gdisk_part_code_bios_boot: EF02
+gvar_gdisk_part_code_solaris_root: BF00
 
