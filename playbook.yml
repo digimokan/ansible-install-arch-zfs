@@ -13,7 +13,7 @@
       when: user_var_motherboard_type != "bios" and user_var_motherboard_type != "uefi"
     - name: "Abort if user did not specify user_var_device_1"
       fail:
-        msg: "user_var_device_1 variable must be set to \"sdx\" (see group_vars/all file)"
+        msg: "user_var_device_1 variable must be set to 'sdx' (see group_vars/all file)"
       when: user_var_device_1 is not regex("^sd.$")
   tasks:
     - include_role:
