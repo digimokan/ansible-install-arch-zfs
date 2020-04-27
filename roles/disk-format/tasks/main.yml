@@ -9,9 +9,9 @@
 - name: "Write new GPT partition table to disk"
   command: sgdisk --mbrtogpt /dev/{{ disk_format_install_drive|quote }}
 
-  - name: "Add BIOS-motherboard GRUB bootloader partition to disk"
+- name: "Add BIOS-motherboard GRUB bootloader partition to disk"
   command: sgdisk --new 1:0:{{ gvar_boot_partition_size|quote }}
-                  --typecode 1:{{ gvar_gdisk_part_code_bios_boot|quote }}02
+                  --typecode 1:{{ gvar_gdisk_part_code_bios_boot|quote }}
                   --change-name 1:{{ gvar_boot_partition_label|quote }}
                   /dev/{{ disk_format_install_drive|quote }}
 
