@@ -1,0 +1,18 @@
+- name: "Erase disk, including part-table and partitions"
+  command: sgdisk --zap-all /dev/{{ disk_device|quote }}
+
+- name: "Write new GPT partition table to disk"
+  command: sgdisk --mbrtogpt /dev/{{ disk_device|quote }}
+
+- name: "Add BIOS-motherboard GRUB bootloader partition to disk"
+  command: sgdisk --new 1:0:{{ disk_format_var_bios_boot_partition_size|quote }}
+                  --typecode 1:{{ disk_format_var_gdisk_part_code_bios_boot|quote }}
+                  --change-name 1:{{ disk_format_var_boot_partition_label|quote }}
+                  /dev/{{ disk_device|quote }}
+
+- name: "Add zfs partition to disk"
+  command: sgdisk --new 2:0:0
+                  --typecode 2:{{ disk_format_var_gdisk_part_code_solaris_root|quote }}
+                  --change-name 2:{{ disk_format_var_zfs_partition_label|quote }}
+                  /dev/{{ disk_device|quote }}
+
