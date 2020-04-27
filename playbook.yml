@@ -16,7 +16,7 @@
     - name: "Abort if user did not specify user_var_device_1"
       assert:
         that:
-          - user_var_device_1 is regex("^sd.?&")
+          - user_var_device_1 is regex("^sd.$")
         msg: "user_var_device_1 variable must be set to \"sdx\" (see group_vars/all file)"
         quiet: true
   tasks:
