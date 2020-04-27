@@ -5,7 +5,7 @@
     - name: "Abort if user did not specify install_disk_device_1"
       assert:
         that:
-          - install_disk_device_1 == "none"
+          - install_disk_device_1 != "none"
         msg: "install_disk_device_1 must be specified (see group_vars/all file)"
         quiet: true
   roles:
