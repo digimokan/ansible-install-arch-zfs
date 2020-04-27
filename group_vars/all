@@ -13,3 +13,11 @@
 user_var_device_1: none
 user_var_device_2: none
 
+################################################################################
+# constant variables: may be overriden, but serve mostly as global constants
+################################################################################
+
+# each install disk will have two partitions, and these are the partition labels
+const_var_boot_partition_label: "boot_partition"
+const_var_zfs_partition_label: "zfs_partition"
+
