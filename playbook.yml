@@ -2,6 +2,10 @@
   become: true
   connection: local
   pre_tasks:
+    - name:: "Import variables from optional, user-specified file"
+      include_vars:
+        file: "{{ user_vars_file }}"
+        when: user_vars_file is defined
     - name: "Abort if user did not specify install_disk_device_1"
       assert:
         that:
