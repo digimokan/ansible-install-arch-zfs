@@ -4,7 +4,7 @@
     state: present
 
 - name: Format first disk with boot and zfs partitions
-  include_task:
+  include_tasks:
     file: format_single_disk.yml
     apply:
       vars:
