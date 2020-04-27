@@ -5,8 +5,8 @@
   command: sgdisk --mbrtogpt /dev/{{ disk_device|quote }}
 
 - name: "Add BIOS-motherboard GRUB bootloader partition to disk"
-  command: sgdisk --new 1:0:{{ disk_format_var_bios_boot_partition_size|quote }}
-                  --typecode 1:{{ disk_format_var_gdisk_part_code_bios_boot|quote }}
+  command: sgdisk --new 1:0:{{ boot_partition_size|quote }}
+                  --typecode 1:{{ boot_partition_code|quote }}
                   --change-name 1:{{ disk_format_var_boot_partition_label|quote }}
                   /dev/{{ disk_device|quote }}
 

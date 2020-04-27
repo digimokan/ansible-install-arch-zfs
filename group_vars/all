@@ -6,6 +6,9 @@
 #   3. specify directly in cmd line with -e user_var_device_1=sda -e user_var_device_2=sdb -e ...
 ################################################################################
 
+# motherboard type: specify "bios" or "uefi"
+user_var_motherboard_type: none
+
 # disks to install Arch Linux to on new machine
 # device should be "sda", "sdb", etc
 # specify device_1 always

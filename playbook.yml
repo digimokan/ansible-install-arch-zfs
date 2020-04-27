@@ -7,16 +7,23 @@
         file: "{{ user_vars_file }}"
       when: user_vars_file is defined
       ignore_errors: true
+    - name: "Abort if user did not specify user_var_motherboard_type"
+      assert:
+        that:
+          - user_var_motherboard_type != "none"
+        msg: "user_var_motherboard_type variable must be specified (see group_vars/all file)"
+        quiet: true
     - name: "Abort if user did not specify user_var_device_1"
       assert:
         that:
           - user_var_device_1 != "none"
-        msg: "user_var_device_1 variable must be specified (see group_vars/user_vars.yml file)"
+        msg: "user_var_device_1 variable must be specified (see group_vars/all file)"
         quiet: true
   tasks:
     - include_role:
         name: disk-format
       vars:
+        disk_format_motherboard_type: "{{ user_var_motherboard_type }}"
         disk_format_def_device_1: "{{ user_var_device_1 }}"
         disk_format_def_device_2: "{{ user_var_device_2 }}"
         disk_format_var_boot_partition_label: "{{ const_var_boot_partition_label }}"
