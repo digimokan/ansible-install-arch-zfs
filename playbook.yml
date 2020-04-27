@@ -5,9 +5,11 @@
     - name: disk_format_install_drive
       prompt: "Enter Installation Drive (e.g. sda)"
       private: no
-  fail:
-    msg: "install_disk_device_1 must be specified (see group_vars/all)"
-    when: install_disk_device_1 == none
+  tasks:
+    - name: "Assert that user specified install_disk_device_1"
+      fail:
+        msg: "install_disk_device_1 must be specified (see group_vars/all)"
+        when: install_disk_device_1 == none
   roles:
     - disk-format
     - pool-creation
