@@ -1,0 +1,5 @@
+disk_format_bios_boot_partition_size: 2M
+
+# gdisk program-specific partition-type codes
+disk_format_gdisk_part_code_bios_boot: EF02
+disk_format_gdisk_part_code_solaris_root: BF00
