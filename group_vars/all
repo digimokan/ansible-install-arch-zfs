@@ -1,8 +1,9 @@
 ###############################################################################
 # play-wide variables
-# define or override these variables in one of two ways:
+# define or override these variables, using one these methods:
 #   1. modify this file directly
-#   2. name overriding vars file on cmd line with -e user_vars=/path/to/vars.yml
+#   2. name overriding vars file on cmd line with -e user_vars_file=/path/to/vars.yml
+#   3. specify vars directly in cmd line option with -e install_disk_device_1=sda
 ###############################################################################
 
 # disks to install Arch Linux to on new machine
