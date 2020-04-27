@@ -8,8 +8,10 @@ disk_format_var_zfs_partition_label: "zfs_partition"
 
 # the gdisk partitioning utility uses these partition-type codes
 disk_format_var_gdisk_part_code_bios_boot: EF02
+disk_format_var_gdisk_part_code_uefi_boot: EF00
 disk_format_var_gdisk_part_code_solaris_root: BF00
 
-# size of the boot parition for a BIOS-motherboard
+# size of the BIOS or UEFI boot parition
 disk_format_var_bios_boot_partition_size: 2M
+disk_format_var_uefi_boot_partition_size: 550M
 

@@ -3,11 +3,14 @@
     name: gptfdisk
     state: present
 
-- name: "For BIOS motherboard: format first disk with boot and zfs partitions"
-  include_tasks: format_disk.yml
+- name: "Format first disk"
+  include_tasks: format_single.yml
   vars:
-    disk_device: "{{ disk_format_def_device_1 }}"
-    boot_partition_size: "{{ disk_format_var_bios_boot_partition_size }}"
-    boot_partition_code: "{{ disk_format_var_gdisk_part_code_bios_boot }}"
-  when: disk_format_motherboard_type == "bios"
+    single_device: "{{ disk_format_def_device_1 }}"
+
+- name: "Format second disk (for mirrored install) if selected"
+  include_tasks: format_single.yml
+  vars:
+    single_device: "{{ disk_format_def_device_2 }}"
+  when: disk_format_def_device_2 is regex("^sd.$")
 
