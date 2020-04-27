@@ -13,14 +13,14 @@
           - user_var_motherboard_type == "bios" or user_var_motherboard_type == "uefi"
         fail_msg: "user_var_motherboard_type variable must be specified (see group_vars/all file)"
         quiet: yes
-        no_log: True
+      no_log: True
     - name: "Abort if user did not specify user_var_device_1"
       assert:
         that:
           - user_var_device_1 is regex("^sd.$")
         fail_msg: "user_var_device_1 variable must be set to \"sdx\" (see group_vars/all file)"
         quiet: yes
-        no_log: True
+      no_log: True
   tasks:
     - include_role:
         name: disk-format
