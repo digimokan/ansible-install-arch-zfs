@@ -7,8 +7,8 @@
   zfs:
     name: "{{ dataset_creation_def_zpool_name }}/ROOT"
     extra_zfs_properties:
-      mountpoint: "none"
       canmount: "off"
+      mountpoint: "none"
     state: present
 
 - name: "Create main ROOT/default boot environment dataset"
@@ -18,4 +18,12 @@
   failed_when:
     - cmd_result.rc != 0
     - "'filesystem successfully created' not in cmd_result.stderr"
+
+- name: "Create [zpool_name]/usr system dataset as part of boot environment"
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/usr"
+    extra_zfs_properties:
+      canmount: "off"
+      mountpoint: "/usr"
+    state: present
 
