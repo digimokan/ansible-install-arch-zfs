@@ -3,11 +3,18 @@
   register: cmd_result
   failed_when: "'is healthy' not in cmd_result.stdout"
 
-- name: "Create [zpool_name]/ROOT dataset to hold boot envs"
+- name: "Create [zpool_name]/ROOT dataset to hold boot environments"
   zfs:
     name: "{{ dataset_creation_def_zpool_name }}/ROOT"
     extra_zfs_properties:
       mountpoint: "none"
       canmount: "off"
+    state: present
+
+- name: "Create main ROOT/default boot environment dataset"
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/ROOT/default"
+    extra_zfs_properties:
+      mountpoint: "/"
     state: present
 
