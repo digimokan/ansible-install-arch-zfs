@@ -17,5 +17,5 @@
   register: cmd_result
   failed_when:
     - cmd_result.rc != 0
-    - "'filesystem successfully created' not in cmd_result.stdout"
+    - "'filesystem successfully created' not in cmd_result.stderr"
 
