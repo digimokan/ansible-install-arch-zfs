@@ -9,7 +9,7 @@
 
 - name: "Delete the existing zpool if it exists"
   command: zpool destroy -f zroot
-  when: zpool_check.stdout is match("no such pool")
+  when: zpool_check.stdout is not match("no such pool")
 
 - name: "Create the 'zroot' zpool on the installation disk(s)"
   command: zpool create -f -d -o ashift=12
