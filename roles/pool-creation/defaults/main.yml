@@ -1,0 +1,9 @@
+################################################################################
+# default variables: placeholders - should mostly override when using the role
+################################################################################
+
+# partition labels for zfs partitions on installation disk(s)
+# set device_2 to "" if installing on single disk
+pool_creation_def_device_1_zfs_partlabel: "zfs_partition"
+pool_creation_def_device_2_zfs_partlabel: "zfs_partition_mirror1"
+
