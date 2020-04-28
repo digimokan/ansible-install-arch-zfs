@@ -1,9 +1,9 @@
-- name: "Check that status of the new zpool is 'ONLINE'"
+- name: "Check that status of the new zpool shows 'ONLINE'"
   command: zpool status -x {{ dataset_creation_def_zpool_name|quote }}
   register: cmd_result
   failed_when: "'is healthy' not in cmd_result.stdout"
 
-- name: "Create [zpool_name]/ROOT dataset to hold boot environments"
+- name: "Create boot-environment-parent dataset: [zpool_name]/ROOT"
   zfs:
     name: "{{ dataset_creation_def_zpool_name }}/ROOT"
     extra_zfs_properties:
@@ -11,7 +11,7 @@
       mountpoint: "none"
     state: present
 
-- name: "Create main ROOT/default boot environment dataset"
+- name: "Create main boot environment dataset: [zpool_name]/ROOT/default"
   command: zfs create -o mountpoint=/
                {{ dataset_creation_def_zpool_name }}/ROOT/default
   register: cmd_result
@@ -19,11 +19,25 @@
     - cmd_result.rc != 0
     - "'filesystem successfully created' not in cmd_result.stderr"
 
-- name: "Create [zpool_name]/usr system dataset as part of boot environment"
+- name: "Create system dataset: [zpool_name]/usr (as part of boot environment)"
   zfs:
     name: "{{ dataset_creation_def_zpool_name }}/usr"
     extra_zfs_properties:
       canmount: "off"
       mountpoint: "/usr"
+    state: present
+
+- name: "Create system dataset: [zpool_name]/usr/src"
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/usr/src"
+    extra_zfs_properties:
+      mountpoint: "/usr/src"
+    state: present
+
+- name: "Create system dataset: [zpool_name]/usr/local"
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/usr/local"
+    extra_zfs_properties:
+      mountpoint: "/usr/local"
     state: present
 
