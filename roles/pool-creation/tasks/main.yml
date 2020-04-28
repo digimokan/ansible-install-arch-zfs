@@ -27,10 +27,10 @@
                               -o feature@spacemap_v2=enabled
                               -o feature@userobj_accounting=enabled
                               -o feature@zpool_checkpoint=enabled
-                 zroot {{ pool_vdevs }}
+                 zroot {{ device_1_part_path }} {{ device_2_part_path }}
   vars:
     device_1_part_path: "/dev/disk/by-partlabel/{{ pool_creation_def_device_1_zfs_partlabel }}"
     device_2_string: " /dev/disk/by-partlabel/{{ pool_creation_def_device_2_zfs_partlabel }}"
     device_2_part_path: "{{ '' if pool_creation_def_device_2_zfs_partlabel == '' else device_2_string }}"
-    pool_vdevs: "{{ device_1_part_path }}{{ device_2_part_path }}"
+    # pool_vdevs: "{{ device_1_part_path }}{{ device_2_part_path }}"
 
