@@ -10,7 +10,9 @@
 
 - name: "Delete the existing zpool if it exists"
   command: zpool destroy -f zroot
-  ignore_errors: yes
+  register: cmd_result
+  failed_when: cmd_result.rc >= 2
+  # ignore_errors: yes
   # when: zpool_check.stdout is not match("no such pool")
 
 - name: "Create the 'zroot' zpool on the installation disk(s)"
