@@ -3,17 +3,10 @@
     name: zfs
     state: present
 
-# - name: "Check if a zpool with the target name already exists"
-#   shell: zpool status zroot
-#   register: zpool_check
-#   ignore_errors: yes
-
 - name: "Delete the existing zpool if it exists"
   command: zpool destroy -f zroot
   register: cmd_result
   failed_when: cmd_result.rc >= 2
-  # ignore_errors: yes
-  # when: zpool_check.stdout is not match("no such pool")
 
 - name: "Create the 'zroot' zpool on the installation disk(s)"
   command: zpool create -f -d -o ashift=12
@@ -34,7 +27,7 @@
                               -o feature@spacemap_v2=enabled
                               -o feature@userobj_accounting=enabled
                               -o feature@zpool_checkpoint=enabled
-                 zroot {{ pool_vdevs|quote }}
+                 zroot {{ pool_vdevs }}
   vars:
     device_1_part_path: "/dev/disk/by-partlabel/{{ pool_creation_def_device_1_zfs_partlabel }}"
     device_2_string: " /dev/disk/by-partlabel/{{ pool_creation_def_device_2_zfs_partlabel }}"
