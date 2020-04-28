@@ -42,6 +42,6 @@
         name: pool-creation
       vars:
         pool_creation_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
-        pool_creation_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
+        pool_creation_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
         pool_creation_def_zpool_name: "{{ const_var_zpool_name }}"
 
