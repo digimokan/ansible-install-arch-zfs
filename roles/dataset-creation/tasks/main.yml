@@ -17,4 +17,8 @@
     extra_zfs_properties:
       mountpoint: "/"
     state: present
+  register: task_result
+  failed_when:
+    - task_result.rc != 0
+    - "'filesystem successfully created' not in task_result.stdout"
 
