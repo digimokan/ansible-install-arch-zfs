@@ -15,6 +15,17 @@
       fail:
         msg: "user_var_device_1 variable must be set to 'sdx' (see group_vars/all file)"
       when: user_var_device_1 is not regex("^sd.$")
+    - name: "Compose 'mirror' string-appends if installing to mirrored disks"
+      set_fact:
+        mirror0_append: "_mirror0"
+        mirror1_append: "_mirror1"
+      when: user_var_device_2 is regex("^sd.$")
+    - name: "Compose partition-label strings for the installation disk(s)"
+      set_fact:
+        play_fact_device_1_boot_partlabel: "{{ const_var_boot_partlabel_base}}{{ mirror0_append | default(omit) }}"
+        play_fact_device_1_zfs_partlabel: "{{ const_var_zfs_partlabel_base}}{{ mirror0_append | default(omit) }}"
+        play_fact_device_2_boot_partlabel: "{{ const_var_boot_partlabel_base}}{{ mirror1_append | default(omit) }}"
+        play_fact_device_2_zfs_partlabel: "{{ const_var_zfs_partlabel_base}}{{ mirror1_append | default(omit) }}"
   tasks:
     - include_role:
         name: disk-format
@@ -22,8 +33,10 @@
         disk_format_def_motherboard_type: "{{ user_var_motherboard_type }}"
         disk_format_def_device_1: "{{ user_var_device_1 }}"
         disk_format_def_device_2: "{{ user_var_device_2 }}"
-        disk_format_var_boot_partition_label: "{{ const_var_boot_partition_label }}"
-        disk_format_var_zfs_partition_label: "{{ const_var_zfs_partition_label }}"
+        disk_format_def_device_1_boot_partlabel: "{{ play_fact_device_1_boot_partlabel }}"
+        disk_format_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
+        disk_format_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
+        disk_format_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
     - include_role:
         name: pool-creation
 

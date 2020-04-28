@@ -21,6 +21,6 @@ user_var_device_2: none
 ################################################################################
 
 # each install disk will have two partitions, and these are the partition labels
-const_var_boot_partition_label: "boot_partition"
-const_var_zfs_partition_label: "zfs_partition"
+const_var_boot_partlabel_base: "boot_partition"
+const_var_zfs_partlabel_base: "zfs_partition"
 

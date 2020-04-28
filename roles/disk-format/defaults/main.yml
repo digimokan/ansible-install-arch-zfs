@@ -9,3 +9,9 @@ disk_format_def_motherboard_type: bios
 disk_format_def_device_1: sda
 disk_format_def_device_2: sdb
 
+# each disk will have two partitions, and these are the partition labels
+disk_format_def_device_1_boot_partlabel: "boot_partition"
+disk_format_def_device_1_zfs_partlabel: "zfs_partition"
+disk_format_def_device_2_boot_partlabel: "boot_partition_mirror1"
+disk_format_def_device_2_zfs_partlabel: "zfs_partition_mirror1"
+

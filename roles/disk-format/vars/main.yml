@@ -2,10 +2,6 @@
 # var variables: may be overriden, but serve mostly as constants
 ################################################################################
 
-# each disk will have two partitions, and these are the partition labels
-disk_format_var_boot_partition_label: "boot_partition"
-disk_format_var_zfs_partition_label: "zfs_partition"
-
 # the gdisk partitioning utility uses these partition-type codes
 disk_format_var_gdisk_part_code_bios_boot: EF02
 disk_format_var_gdisk_part_code_uefi_boot: EF00
