@@ -25,7 +25,7 @@
                  zroot {{ pool_vdevs|quote }}
   vars:
     device_1_part_path: "/dev/disk/by-partlabel/{{ pool_creation_def_device_1_zfs_partlabel }}"
-    device_2_string: "/dev/disk/by-partlabel/{{ pool_creation_def_device_2_zfs_partlabel }}"
+    device_2_string: " /dev/disk/by-partlabel/{{ pool_creation_def_device_2_zfs_partlabel }}"
     device_2_part_path: "{{ '' if pool_creation_def_device_2_zfs_partlabel == '' else device_2_string }}"
-    pool_vdevs: "{{ device_1_part_path }} {{ device_2_part_path }}"
+    pool_vdevs: "{{ device_1_part_path }}{{ device_2_part_path }}"
 
