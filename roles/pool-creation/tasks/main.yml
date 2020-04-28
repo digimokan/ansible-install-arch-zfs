@@ -9,25 +9,26 @@
   failed_when: cmd_result.rc >= 2
 
 - name: "Create the new zpool on the installation disk(s)"
-  command: zpool create -f -d -o ashift=12
-                              -o feature@allocation_classes=enabled
-                              -o feature@async_destroy=enabled
-                              -o feature@bookmarks=enabled
-                              -o feature@embedded_data=enabled
-                              -o feature@empty_bpobj=enabled
-                              -o feature@enabled_txg=enabled
-                              -o feature@extensible_dataset=enabled
-                              -o feature@filesystem_limits=enabled
-                              -o feature@hole_birth=enabled
-                              -o feature@large_blocks=enabled
-                              -o feature@lz4_compress=enabled
-                              -o feature@project_quota=enabled
-                              -o feature@resilver_defer=enabled
-                              -o feature@spacemap_histogram=enabled
-                              -o feature@spacemap_v2=enabled
-                              -o feature@userobj_accounting=enabled
-                              -o feature@zpool_checkpoint=enabled
-                 {{ pool_creation_def_zpool_name|quote }} {{ mirror_opt }} {{ device_1_part_path }} {{ device_2_part_path }}
+  command: zpool create -f -d -m none -O compress=lz4
+              -o ashift=12
+              -o feature@allocation_classes=enabled
+              -o feature@async_destroy=enabled
+              -o feature@bookmarks=enabled
+              -o feature@embedded_data=enabled
+              -o feature@empty_bpobj=enabled
+              -o feature@enabled_txg=enabled
+              -o feature@extensible_dataset=enabled
+              -o feature@filesystem_limits=enabled
+              -o feature@hole_birth=enabled
+              -o feature@large_blocks=enabled
+              -o feature@lz4_compress=enabled
+              -o feature@project_quota=enabled
+              -o feature@resilver_defer=enabled
+              -o feature@spacemap_histogram=enabled
+              -o feature@spacemap_v2=enabled
+              -o feature@userobj_accounting=enabled
+              -o feature@zpool_checkpoint=enabled
+              {{ pool_creation_def_zpool_name|quote }} {{ mirror_opt }} {{ device_1_part_path }} {{ device_2_part_path }}
   vars:
     device_1_part_path: "/dev/disk/by-partlabel/{{ pool_creation_def_device_1_zfs_partlabel }}"
     device_2_string: "/dev/disk/by-partlabel/{{ pool_creation_def_device_2_zfs_partlabel }}"
