@@ -3,6 +3,14 @@
     name: zfs
     state: present
 
+- name: "Check if a zpool with the target name already exists"
+  shell: zpool status zroot
+  register: zpool_check
+
+- name: "Delete the existing zpool if it exists"
+  command: zpool destroy -f zroot
+  when: 'no such pool' in zpool_check.stdout
+
 - name: "Create the 'zroot' zpool on the installation disk(s)"
   command: zpool create -f -d -o ashift=12
                               -o feature@allocation_classes=enabled
