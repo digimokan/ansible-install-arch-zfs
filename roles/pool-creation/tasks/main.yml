@@ -9,7 +9,7 @@
   failed_when: cmd_result.rc >= 2
 
 - name: "Create the new zpool on the installation disk(s)"
-  command: zpool create -f -d -m none -O compress=lz4
+  command: zpool create -f -d -m none -O compress=on
               -o ashift=12
               -o feature@allocation_classes=enabled
               -o feature@async_destroy=enabled
