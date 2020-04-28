@@ -24,3 +24,6 @@ user_var_device_2: none
 const_var_boot_partlabel_base: "boot_partition"
 const_var_zfs_partlabel_base: "zfs_partition"
 
+# zpool name
+const_var_zpool_name: "zroot"
+

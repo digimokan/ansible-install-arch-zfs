@@ -7,3 +7,6 @@
 pool_creation_def_device_1_zfs_partlabel: "zfs_partition"
 pool_creation_def_device_2_zfs_partlabel: "zfs_partition_mirror1"
 
+# zpool name
+pool_creation_def_zpool_name: "zroot"
+
