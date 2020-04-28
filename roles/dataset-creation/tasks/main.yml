@@ -1,0 +1,5 @@
+- name: "Check that status of the new zpool is 'ONLINE'"
+  command: zpool status {{ dataset_creation_def_zpool_name|quote }}
+  register: cmd_result
+  failed_when: "'state: ONLINE' not in cmd_result.stdout"
+

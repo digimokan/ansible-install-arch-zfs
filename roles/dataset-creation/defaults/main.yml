@@ -1,0 +1,7 @@
+################################################################################
+# default variables: placeholders - should mostly override when using the role
+################################################################################
+
+# zpool name
+dataset_creation_def_zpool_name: "zroot"
+
