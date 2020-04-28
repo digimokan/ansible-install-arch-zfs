@@ -6,6 +6,7 @@
 - name: "Check if a zpool with the target name already exists"
   shell: zpool status zroot
   register: zpool_check
+  ignore_errors: yes
 
 - name: "Delete the existing zpool if it exists"
   command: zpool destroy -f zroot
