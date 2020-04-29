@@ -4,7 +4,7 @@
   pre_tasks:
     - name: "Import user-vars file (as req), and check all user-vars defined"
       include_role:
-        user-vars-chk
+        name: user-vars-chk
     - name: "Compose partition-label strings for the installation disk(s)"
       set_fact:
         play_fact_device_1_boot_partlabel: "{{ const_var_boot_partlabel_base }}{{ mirror0_append }}"
