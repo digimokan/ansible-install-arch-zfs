@@ -1,25 +1,20 @@
-- name: "Create /usr system datasets that are part of boot environment"
-  block:
-  - name: "Create [zpool_name]/usr"
-    zfs:
-      name: "{{ dataset_creation_def_zpool_name }}/usr"
-      extra_zfs_properties:
-        canmount: "off"
-        mountpoint: "/usr"
-      state: present
+- name: "Create [zpool_name]/usr system dataset (part of boot environment)"
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/usr"
+    extra_zfs_properties:
+      canmount: "off"
+      mountpoint: "/usr"
+    state: present
 
 - name: "Create /usr mountable, snapshottable stand-alone datasets"
-  block:
-  - name: "Create [zpool_name]/usr/src"
-    zfs:
-      name: "{{ dataset_creation_def_zpool_name }}/usr/src"
-      extra_zfs_properties:
-        mountpoint: "/usr/src"
-      state: present
-  - name: "Create [zpool_name]/usr/local"
-    zfs:
-      name: "{{ dataset_creation_def_zpool_name }}/usr/local"
-      extra_zfs_properties:
-        mountpoint: "/usr/local"
-      state: present
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/usr/{{ itemj.path }}"
+    extra_zfs_properties:
+      mountpoint: "/usr/{{ itemj.path }}"
+    state: present
+  loop:
+    - path: "src"
+    - path: "local"
+  loop_control:
+    loop_var: itemj
 
