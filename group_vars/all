@@ -13,6 +13,9 @@
 # user_var_install_devices:
 #   - "sda"
 
+# zpool name
+user_var_zpool_name: "zroot"
+
 ################################################################################
 # constant variables: may be overriden, but serve mostly as global constants
 ################################################################################
@@ -20,7 +23,4 @@
 # each install disk will have two partitions, and these are the partition labels
 const_var_boot_partlabel_base: "boot_partition"
 const_var_zfs_partlabel_base: "zfs_partition"
-
-# zpool name
-const_var_zpool_name: "zroot"
 
