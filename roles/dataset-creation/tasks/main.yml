@@ -5,6 +5,8 @@
 
 - name: "Create all datasets"
   include_tasks:
+    file: "{{ item }}"
+  loop:
     - bootenv.yml
     - usr.yml
 
