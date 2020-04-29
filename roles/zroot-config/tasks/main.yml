@@ -1,3 +1,6 @@
 - name: "Unmount all zfs filesystems"
   command: zfs unmount -a
 
+- name: "Set bootfs property on default-boot-environment root filesystem"
+  command: zpool set bootfs={{ zroot_config_def_zpool_name }}/ROOT/default {{ zroot_config_def_zpool_name|quote }}
+
