@@ -21,13 +21,19 @@ Install a minimal, bootable, zfs-based Arch Linux to a new machine from a live
 _archiso_ USB stick.
 
 Base the _ansible_ script on the official Arch Linux
-[Arch Linux ZFS Install Guide](https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_ZFS).
+[Arch Linux ZFS Install Guide](https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_ZFS)
+(also consult guidance in the [Arch Linux Installation Guide](https://wiki.archlinux.org/index.php/Installation_guide)
+and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 
 ## Features
 
+* Auto-detects and adjusts for BIOS-motherboard or UEFI-motherboard on new
+  machine.
 * Installs Arch Linux to single hard drive, or two mirrored drives.
 * On Completion, the new machine will boot a minimal Arch Linux OS running the
-  stable zfs kernel.
+  stable zfs kernel (`archzfs-linux`). The new machine is ready for
+  configuration, at the [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
+  step.
 
 ## Requirements
 
@@ -45,7 +51,12 @@ Base the _ansible_ script on the official Arch Linux
 2. Boot up the new machine from the _archiso_ USB stick. A shell prompt for the
    root user should be active.
 
-3. As required: use `pacman` to install `git` and `ansible` packages.
+3. As required: use `pacman` to install `git` and `ansible` packages:
+
+   ```shell
+   # pacman -Sy
+   # pacman -S git ansible
+   ```
 
 4. Clone project into a local directory:
 
@@ -64,6 +75,9 @@ Base the _ansible_ script on the official Arch Linux
    ```shell
    # ansible-playbook -i hosts playbook.yml
    ```
+
+7. Configure the new machine, per the [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
+   instructions in the _Arch Linux Installation Guide_.
 
 ## Full Usage / Options
 
