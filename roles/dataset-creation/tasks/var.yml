@@ -20,6 +20,11 @@
       acltype: "{{ itemj.acl | default(omit) }}"
     state: present
   loop:
+    - path: "cache"
+    - path: "lib/lxc"
+    - path: "lib/lxd"
+    - path: "lib/machines"
+    - path: "lib/libvirt"
     - path: "lib/systemd/coredump"
     - path: "log"
     - path: "log/journal"
