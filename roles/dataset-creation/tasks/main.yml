@@ -5,10 +5,12 @@
 
 - name: "Create all datasets"
   include_tasks:
-    file: "{{ item }}"
+    file: "{{ item_main }}"
   loop:
     - bootenv.yml
     - usr.yml
     - var.yml
     - home.yml
+  loop_control:
+    loop_var: item_main
 

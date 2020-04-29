@@ -14,11 +14,13 @@
   block:
     - name: "Create 'zpool.cache' source and destination dirs, if they don't exist"
       file:
-        path: "{{ item }}"
+        path: "{{ item_main }}"
         state: directory
       loop:
         - "{{ src_dir }}"
         - "{{ dest_dir }}"
+      loop_control:
+        loop_var: item_main
     - name: "Create 'zpool.cache' file if it does not exist"
       command:
         cmd: zpool set cachefile={{ src_file|quote }} {{ zroot_config_def_zpool_name|quote }}

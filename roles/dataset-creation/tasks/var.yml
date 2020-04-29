@@ -1,23 +1,23 @@
 - name: "Create /var system datasets that are part of boot environment"
   zfs:
-    name: "{{ dataset_creation_def_zpool_name }}/var{{ itemj.path }}"
+    name: "{{ dataset_creation_def_zpool_name }}/var{{ item_usr.path }}"
     extra_zfs_properties:
       canmount: "off"
-      mountpoint: "/var{{ itemj.path }}"
+      mountpoint: "/var{{ item_usr.path }}"
     state: present
   loop:
     - path: ""
     - path: "/lib"
     - path: "/lib/systemd"
   loop_control:
-    loop_var: itemj
+    loop_var: item_usr
 
 - name: "Create /var mountable, snapshottable stand-alone datasets"
   zfs:
-    name: "{{ dataset_creation_def_zpool_name }}/var/{{ itemj.path }}"
+    name: "{{ dataset_creation_def_zpool_name }}/var/{{ item_usr.path }}"
     extra_zfs_properties:
-      mountpoint: "/var/{{ itemj.path }}"
-      acltype: "{{ itemj.acl | default(omit) }}"
+      mountpoint: "/var/{{ item_usr.path }}"
+      acltype: "{{ item_usr.acl | default(omit) }}"
     state: present
   loop:
     - path: "cache"
@@ -30,5 +30,5 @@
     - path: "log/journal"
       acl: "posixacl"
   loop_control:
-    loop_var: itemj
+    loop_var: item_usr
 

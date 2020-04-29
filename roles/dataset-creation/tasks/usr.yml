@@ -8,13 +8,13 @@
 
 - name: "Create /usr mountable, snapshottable stand-alone datasets"
   zfs:
-    name: "{{ dataset_creation_def_zpool_name }}/usr/{{ itemj.path }}"
+    name: "{{ dataset_creation_def_zpool_name }}/usr/{{ item_usr.path }}"
     extra_zfs_properties:
-      mountpoint: "/usr/{{ itemj.path }}"
+      mountpoint: "/usr/{{ item_usr.path }}"
     state: present
   loop:
     - path: "src"
     - path: "local"
   loop_control:
-    loop_var: itemj
+    loop_var: item_usr
 
