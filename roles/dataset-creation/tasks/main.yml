@@ -12,12 +12,11 @@
     state: present
 
 - name: "Create main boot environment dataset: [zpool_name]/ROOT/default"
-  command: zfs create -o mountpoint=/
-               {{ dataset_creation_def_zpool_name }}/ROOT/default
-  register: cmd_result
-  failed_when:
-    - cmd_result.rc != 0
-    - "'filesystem successfully created' not in cmd_result.stderr"
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/ROOT/default"
+    extra_zfs_properties:
+      mountpoint: "/"
+    state: present
 
 - name: "Create system dataset: [zpool_name]/usr (as part of boot environment)"
   zfs:
