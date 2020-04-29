@@ -4,3 +4,6 @@
 - name: "Set bootfs property on default-boot-environment root filesystem"
   command: zpool set bootfs={{ zroot_config_def_zpool_name }}/ROOT/default {{ zroot_config_def_zpool_name|quote }}
 
+- name: "Export the new zpool"
+  command: zpool export {{ zroot_config_def_zpool_name|quote }}
+
