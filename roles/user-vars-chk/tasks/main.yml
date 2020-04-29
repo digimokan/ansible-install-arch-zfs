@@ -1,8 +1,8 @@
-- name: "Import variables from optional, user-specified file"
-  include_vars:
-    file: "{{ user_vars_file }}"
-  when: user_vars_file is defined
-  ignore_errors: true
+# - name: "Import variables from optional, user-specified file"
+#   include_vars:
+#     file: "{{ user_vars_file }}"
+#   when: user_vars_file is defined
+#   ignore_errors: true
 
 - name: "Abort if user did not specify user_var_install_devices"
   fail:
