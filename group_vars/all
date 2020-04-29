@@ -8,7 +8,7 @@
 
 # list of devices to install Arch Linux to on new machine
 # devices should be "sda", "sdb", etc
-# (specify second device for two-disk, mirrored installation)
+# (specify two list items for two-disk, mirrored installation)
 
 # user_var_install_devices:
 #   - "sda"

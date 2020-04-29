@@ -5,7 +5,8 @@
     play_fact_device_2_boot_partlabel: "{{ device_2_boot_base }}{{ mirror1_append }}"
     play_fact_device_2_zfs_partlabel: "{{ device_2_zfs_base }}{{ mirror1_append }}"
   vars:
-    is_mirrored_install: "{{ 'true' if user_var_install_devices|length > 1 else 'false' }}"
+    # is_mirrored_install: "{{ 'true' if user_var_install_devices|length > 1 else 'false' }}"
+    is_mirrored_install: "false"
     mirror0_append: "{{ '_mirror0' if is_mirrored_install is 'true' else '' }}"
     mirror1_append: "{{ '_mirror1' if is_mirrored_install is 'true' else '' }}"
     device_2_boot_base: "{{ const_var_boot_partlabel_base if is_mirrored_install is 'true' else '' }}"
