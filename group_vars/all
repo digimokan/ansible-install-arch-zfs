@@ -3,11 +3,8 @@
 # These placeholder vars should be overridden, using one of these methods:
 #   1. modify this file directly
 #   2. name overriding vars file on cmd line with -e user_vars_file=/path/to/vars.yml
-#   3. specify CLI directly with -e user_var_motherboard_type=bios -e user_var_device_1=sda -e ...
+#   3. specify CLI directly with -e user_var_device_1=sda [-e user_var_device_2=sdb]
 ################################################################################
-
-# motherboard type: specify "bios" or "uefi"
-user_var_motherboard_type: none
 
 # disks to install Arch Linux to on new machine
 # device should be "sda", "sdb", etc
