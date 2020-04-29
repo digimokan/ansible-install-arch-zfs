@@ -24,14 +24,16 @@
 
 - name: "Create /var mountable, snapshottable stand-alone datasets"
   zfs:
-    name: "{{ dataset_creation_def_zpool_name }}/var/{{ item.path }}"
+    name: "{{ dataset_creation_def_zpool_name }}/var/{{ itemj.path }}"
     extra_zfs_properties:
-      mountpoint: "/var/{{ item.path }}"
-      acltype: "{{ item.acl | default(omit) }}"
+      mountpoint: "/var/{{ itemj.path }}"
+      acltype: "{{ itemj.acl | default(omit) }}"
     state: present
   loop:
     - path: "lib/systemd/coredump"
     - path: "log"
     - path: "log/journal"
       acl: "posixacl"
+  loop_control:
+    loop_var: itemj
 
