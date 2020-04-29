@@ -1,0 +1,3 @@
+- name: "Unmount all zfs filesystems"
+  command: zfs unmount -a
+

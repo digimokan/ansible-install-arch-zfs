@@ -48,4 +48,8 @@
         name: dataset-creation
       vars:
         dataset_creation_def_zpool_name: "{{ const_var_zpool_name }}"
+    - include_role:
+        name: zroot-config
+      vars:
+        zroot_cofig_def_zpool_name: "{{ const_var_zpool_name }}"
 
