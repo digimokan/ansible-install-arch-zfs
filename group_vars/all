@@ -6,12 +6,11 @@
 #   3. specify CLI directly with -e user_var_device_1=sda [-e user_var_device_2=sdb]
 ################################################################################
 
-# disks to install Arch Linux to on new machine
-# device should be "sda", "sdb", etc
-# specify device_1 always
-# specify device_2 for a two-disk, mirrored installation
-user_var_device_1: none
-user_var_device_2: none
+# list of devices to install Arch Linux to on new machine
+# devices should be "sda", "sdb", etc
+# (specify second device for two-disk, mirrored installation)
+user_var_install_devices:
+  - "none"
 
 ################################################################################
 # constant variables: may be overriden, but serve mostly as global constants

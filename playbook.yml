@@ -14,8 +14,8 @@
         - zroot-config
       vars:
         disk_format_def_motherboard_type: "{{ play_fact_motherboard_type }}"
-        disk_format_def_device_1: "{{ user_var_device_1 }}"
-        disk_format_def_device_2: "{{ user_var_device_2 }}"
+        disk_format_def_device_1: "{{ user_var_install_devices[0] }}"
+        disk_format_def_device_2: "{{ 'none' if user_var_install_devices|length == 1 else user_var_install_devices[1] }}"
         disk_format_def_device_1_boot_partlabel: "{{ play_fact_device_1_boot_partlabel }}"
         disk_format_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
         disk_format_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
