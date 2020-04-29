@@ -24,5 +24,5 @@
         pool_creation_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
         pool_creation_def_zpool_name: "{{ user_var_zpool_name }}"
         dataset_creation_def_zpool_name: "{{ user_var_zpool_name }}"
-        zroot_cofig_def_zpool_name: "{{ user_var_zpool_name }}"
+        zroot_config_def_zpool_name: "{{ user_var_zpool_name }}"
 

@@ -70,10 +70,10 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
    # cd ansible-install-arch-zfs
    ```
 
-6. Run the ansible script:
+6. Run the ansible script for single-disk install:
 
    ```shell
-   # ansible-playbook -i hosts playbook.yml
+   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
    ```
 
 7. Configure the new machine, per the [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
@@ -81,9 +81,25 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 
 ## Full Usage / Options
 
-```
-<cut and paste help menu here>
-```
+### Option 1: Set Required User Vars From Command Line
+
+* Single-Disk Install:
+
+   ```shell
+   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
+   ```
+
+* Two-Disk Mirrored Install:
+
+   ```shell
+   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda","sdb"]}' playbook.yml
+   ```
+
+* Single-Disk Install, Specifying The New `zpool` Name:
+
+   ```shell
+   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
+   ```
 
 ## Source Code Layout
 
