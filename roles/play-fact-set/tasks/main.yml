@@ -10,3 +10,13 @@
     device_2_boot_base: "{{ const_var_boot_partlabel_base if user_var_device_2 is regex('^sd.$') else '' }}"
     device_2_zfs_base: "{{ const_var_zfs_partlabel_base if user_var_device_2 is regex('^sd.$') else '' }}"
 
+- name: "Determine installation machine motherboard type (BIOS or UEFI)"
+  block:
+    - name: "Check presence of 'efivars' dir, which indicates UEFI motherboard"
+      stat:
+        path: "/sys/firmware/efi/efivars"
+      register: efivars
+    - name: "Set the motherboard-type play fact"
+      set_fact:
+        play_fact_motherboard_type: "{{ 'uefi' if efivars.stat.exists else 'bios' }}"
+
