@@ -16,5 +16,5 @@
     single_device: "{{ disk_format_def_device_2 }}"
     boot_partition_label: "{{ disk_format_def_device_2_boot_partlabel }}"
     zfs_partition_label: "{{ disk_format_def_device_2_zfs_partlabel }}"
-  when: disk_format_def_device_2 is not "none"
+  when: disk_format_def_device_2 != "none"
 
