@@ -70,7 +70,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
    # cd ansible-install-arch-zfs
    ```
 
-6. Run the ansible script for single-disk install:
+6. Run the ansible script for a single-disk install:
 
    ```shell
    # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
@@ -81,24 +81,60 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 
 ## Full Usage / Options
 
-### Option 1: Set Required User Vars From Command Line
+### Method 1: Set Required User Vars From Command Line
 
-* Single-Disk Install:
+* For Single-Disk Install Option:
 
    ```shell
    # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
    ```
 
-* Two-Disk Mirrored Install:
+* For Two-Disk Mirrored Install Option:
 
    ```shell
    # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda","sdb"]}' playbook.yml
    ```
 
-* Single-Disk Install, Specifying The New `zpool` Name:
+* For Single-Disk Install Option, Specifying The New `zpool` Name:
 
    ```shell
-   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
+   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"],"user_var_zpool_name":"zpool_alpha"}' playbook.yml
+   ```
+
+### Method 2: Set Required User Vars In External Vars File
+
+1. Define the required user vars in an external file:
+
+   ```
+   # /some/file/path/my_user_vars.yml
+   user_var_install_devices:
+     - "sda"
+     - "sdb"
+   user_var_zpool_name: "zpool_alpha"
+   ```
+
+2. Run the playbook, passing the external vars file:
+
+   ```shell
+   # ansible-playbook -i hosts -e '@/some/file/path/my_user_vars.yml' playbook.yml
+   ```
+
+### Method 3: Set Required User Vars Internally, Within Source Tree
+
+1. Define the required user vars in project `group_vars/all` file:
+
+   ```
+   # group_vars/all
+   user_var_install_devices:
+     - "sda"
+     - "sdb"
+   user_var_zpool_name: "zpool_alpha"
+   ```
+
+2. Run the playbook:
+
+   ```shell
+   # ansible-playbook -i hosts playbook.yml
    ```
 
 ## Source Code Layout
@@ -106,15 +142,17 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 ```
 ├─┬ ansible-install-arch-zfs/
 │ │
-│ ├─┬ roles/
-│ │ ├─┬ somea/
-│ │ │ ├── Hello.cpp
-│ │ │ └── Hello.hpp
-│ │ ├─┬ someb/
-│ │ │ ├── Goodbye.cpp
-│ │ │ └── Goodbye.hpp
-│ │ └── main.cpp
+│ ├── group_vars/         # required user-vars, and constant playbook vars
 │ │
+│ ├─┬ roles/
+│ │ ├── dataset-creation/ # creates reasonable set of system/user datasets
+│ │ ├── disk-format/      # formats install disk(s) with boot/zfs partitions
+│ │ ├── play-fact-set/    # initial calc/set of play-wide vars
+│ │ ├── pool-creation/    # creates zpool on the install disk(s)
+│ │ ├── user-vars-chk/    # checks that required user_var_* vars are defined
+│ │ └── zroot-config/     # configures zpool for use after adding datasets
+│ │
+│ ├── ansible.cfg         # play-wide ansible meta-config
 │ ├── hosts               # ansible inventory (configured for local host)
 │ └── playbook.yml        # main ansible playbook
 │
