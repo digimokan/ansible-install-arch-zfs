@@ -2,10 +2,9 @@
   become: true
   connection: local
   pre_tasks:
-    - name: "Ensure system clock is accurate"
+    - name: "Start systemd-timesyncd to ensure system clock is accurate"
       service:
-        name: timedatectl
-        args: set-ntp
+        name: systemd-timesyncd
         state: started
   tasks:
     - name: "Install the basic, minimal, zfs-based Arch Linux to the drive(s)"
