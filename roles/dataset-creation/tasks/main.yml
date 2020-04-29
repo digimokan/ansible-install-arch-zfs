@@ -9,4 +9,5 @@
   loop:
     - bootenv.yml
     - usr.yml
+    - var.yml
 

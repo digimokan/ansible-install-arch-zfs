@@ -1,0 +1,46 @@
+- name: "Create /var system datasets that are part of boot environment"
+  block:
+  - name: "Create [zpool_name]/var"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/var"
+      extra_zfs_properties:
+        canmount: "off"
+        mountpoint: "/var"
+      state: present
+  - name: "Create [zpool_name]/var/lib"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/var/lib"
+      extra_zfs_properties:
+        canmount: "off"
+        mountpoint: "/var/lib"
+      state: present
+  - name: "Create [zpool_name]/var/lib/systemd"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/var/lib/systemd"
+      extra_zfs_properties:
+        canmount: "off"
+        mountpoint: "/var/lib/systemd"
+      state: present
+
+- name: "Create /var mountable, snapshottable stand-alone datasets"
+  block:
+  - name: "Create [zpool_name]/var/lib/systemd/coredump"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/usr/var/lib/systemd/coredump"
+      extra_zfs_properties:
+        mountpoint: "/usr/var/lib/systemd/coredump"
+      state: present
+  - name: "Create [zpool_name]/var/log"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/var/log"
+      extra_zfs_properties:
+        mountpoint: "/var/log"
+      state: present
+  - name: "Create [zpool_name]/var/log/journal"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/var/log/journal"
+      extra_zfs_properties:
+        mountpoint: "/var/log/journal"
+        acltype: "posixacl"
+      state: present
+
