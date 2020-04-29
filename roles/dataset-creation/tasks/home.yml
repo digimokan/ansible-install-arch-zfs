@@ -1,0 +1,7 @@
+- name: "Create main /home mountable, snapshottable stand-alone dataset"
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/home"
+    extra_zfs_properties:
+      mountpoint: "/home"
+    state: present
+

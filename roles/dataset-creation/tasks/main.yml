@@ -10,4 +10,5 @@
     - bootenv.yml
     - usr.yml
     - var.yml
+    - home.yml
 
