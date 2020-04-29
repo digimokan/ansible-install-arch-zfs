@@ -7,3 +7,6 @@
 - name: "Export the new zpool"
   command: zpool export {{ zroot_config_def_zpool_name|quote }}
 
+- name: "Re-import the new zpool"
+  command: zpool import -d /dev/disk/by-partlabel -R /mnt {{ zroot_config_def_zpool_name|quote }}
+
