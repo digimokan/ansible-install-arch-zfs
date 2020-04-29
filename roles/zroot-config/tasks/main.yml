@@ -11,7 +11,8 @@
   command: zpool import -d /dev/disk/by-partlabel -R /mnt {{ zroot_config_def_zpool_name|quote }}
 
 - name: "Create 'zpool.cache' file if it does not exist"
-  command: zpool set cachefile=/etc/zfs/zpool.cache {{ zroot_config_def_zpool_name|quote }}
+  command:
+    cmd: zpool set cachefile=/etc/zfs/zpool.cache {{ zroot_config_def_zpool_name|quote }}
     creates: "/etc/zfs/zpool.cache"
 
 - name: "Copy 'zpool.cache' file into the zpool filesystem"
