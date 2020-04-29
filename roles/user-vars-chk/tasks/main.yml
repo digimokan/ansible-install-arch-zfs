@@ -14,10 +14,3 @@
     msg: "user_var_device_1 variable must be set to 'sdx' (see group_vars/all file)"
   when: user_var_device_1 is not regex("^sd.$")
 
-- name: "Compose '_mirror' string-appends if installing to mirrored disks"
-  set_fact:
-    mirror0_append: "{{ '_mirror0' if user_var_device_2 is regex('^sd.$') else '' }}"
-    mirror1_append: "{{ '_mirror1' if user_var_device_2 is regex('^sd.$') else '' }}"
-    device_2_boot_base: "{{ const_var_boot_partlabel_base if user_var_device_2 is regex('^sd.$') else '' }}"
-    device_2_zfs_base: "{{ const_var_zfs_partlabel_base if user_var_device_2 is regex('^sd.$') else '' }}"
-

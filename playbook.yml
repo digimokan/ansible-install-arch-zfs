@@ -1,21 +1,13 @@
 - hosts: localhost
   become: true
   connection: local
-  pre_tasks:
-    - name: "Import user-vars file (as req), and check all user-vars defined"
-      include_role:
-        name: user-vars-chk
-    - name: "Compose partition-label strings for the installation disk(s)"
-      set_fact:
-        play_fact_device_1_boot_partlabel: "{{ const_var_boot_partlabel_base }}{{ mirror0_append }}"
-        play_fact_device_1_zfs_partlabel: "{{ const_var_zfs_partlabel_base }}{{ mirror0_append }}"
-        play_fact_device_2_boot_partlabel: "{{ device_2_boot_base }}{{ mirror1_append }}"
-        play_fact_device_2_zfs_partlabel: "{{ device_2_zfs_base }}{{ mirror1_append }}"
   tasks:
     - name: "Install the basic, minimal, zfs-based Arch Linux to the drive(s)"
       include_role:
         name: "{{ item }}"
       loop:
+        - user-vars-chk
+        - play-fact-set
         - disk-format
         - pool-creation
         - dataset-creation

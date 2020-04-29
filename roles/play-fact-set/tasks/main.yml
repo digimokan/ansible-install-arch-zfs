@@ -1,0 +1,14 @@
+- name: "Compose '_mirror' string-appends if installing to mirrored disks"
+  set_fact:
+    mirror0_append: "{{ '_mirror0' if user_var_device_2 is regex('^sd.$') else '' }}"
+    mirror1_append: "{{ '_mirror1' if user_var_device_2 is regex('^sd.$') else '' }}"
+    device_2_boot_base: "{{ const_var_boot_partlabel_base if user_var_device_2 is regex('^sd.$') else '' }}"
+    device_2_zfs_base: "{{ const_var_zfs_partlabel_base if user_var_device_2 is regex('^sd.$') else '' }}"
+
+- name: "Compose partition-label strings for the installation disk(s)"
+  set_fact:
+    play_fact_device_1_boot_partlabel: "{{ const_var_boot_partlabel_base }}{{ mirror0_append }}"
+    play_fact_device_1_zfs_partlabel: "{{ const_var_zfs_partlabel_base }}{{ mirror0_append }}"
+    play_fact_device_2_boot_partlabel: "{{ device_2_boot_base }}{{ mirror1_append }}"
+    play_fact_device_2_zfs_partlabel: "{{ device_2_zfs_base }}{{ mirror1_append }}"
+
