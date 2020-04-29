@@ -12,8 +12,14 @@
         play_fact_device_2_boot_partlabel: "{{ device_2_boot_base }}{{ mirror1_append }}"
         play_fact_device_2_zfs_partlabel: "{{ device_2_zfs_base }}{{ mirror1_append }}"
   tasks:
-    - include_role:
-        name: disk-format
+    - name: "Install the basic, minimal, zfs-based Arch Linux to the drive(s)"
+      include_role:
+        name: "{{ item }}"
+      loop:
+        - disk-format
+        - pool-creation
+        - dataset-creation
+        - zroot-config
       vars:
         disk_format_def_motherboard_type: "{{ user_var_motherboard_type }}"
         disk_format_def_device_1: "{{ user_var_device_1 }}"
@@ -22,18 +28,9 @@
         disk_format_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
         disk_format_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
         disk_format_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
-    - include_role:
-        name: pool-creation
-      vars:
         pool_creation_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
         pool_creation_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
         pool_creation_def_zpool_name: "{{ const_var_zpool_name }}"
-    - include_role:
-        name: dataset-creation
-      vars:
         dataset_creation_def_zpool_name: "{{ const_var_zpool_name }}"
-    - include_role:
-        name: zroot-config
-      vars:
         zroot_cofig_def_zpool_name: "{{ const_var_zpool_name }}"
 
