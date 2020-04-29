@@ -1,0 +1,22 @@
+- name: "Create /usr system datasets"
+  block:
+  - name: "Create [zpool_name]/usr (as part of boot environment)"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/usr"
+      extra_zfs_properties:
+        canmount: "off"
+        mountpoint: "/usr"
+      state: present
+  - name: "Create [zpool_name]/usr/src"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/usr/src"
+      extra_zfs_properties:
+        mountpoint: "/usr/src"
+      state: present
+  - name: "Create [zpool_name]/usr/local"
+    zfs:
+      name: "{{ dataset_creation_def_zpool_name }}/usr/local"
+      extra_zfs_properties:
+        mountpoint: "/usr/local"
+      state: present
+
