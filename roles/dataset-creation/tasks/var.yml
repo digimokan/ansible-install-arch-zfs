@@ -23,24 +23,15 @@
       state: present
 
 - name: "Create /var mountable, snapshottable stand-alone datasets"
-  block:
-  - name: "Create [zpool_name]/var/lib/systemd/coredump"
-    zfs:
-      name: "{{ dataset_creation_def_zpool_name }}/usr/var/lib/systemd/coredump"
-      extra_zfs_properties:
-        mountpoint: "/usr/var/lib/systemd/coredump"
-      state: present
-  - name: "Create [zpool_name]/var/log"
-    zfs:
-      name: "{{ dataset_creation_def_zpool_name }}/var/log"
-      extra_zfs_properties:
-        mountpoint: "/var/log"
-      state: present
-  - name: "Create [zpool_name]/var/log/journal"
-    zfs:
-      name: "{{ dataset_creation_def_zpool_name }}/var/log/journal"
-      extra_zfs_properties:
-        mountpoint: "/var/log/journal"
-        acltype: "posixacl"
-      state: present
+  zfs:
+    name: "{{ dataset_creation_def_zpool_name }}/var/{{ item.path }}"
+    extra_zfs_properties:
+      mountpoint: "/var/{{ item.path }}"
+      acltype: "{{ item.acl | default(omit) }}"
+    state: present
+  loop:
+    - path: "lib/systemd/coredump"
+    - path: "log"
+    - path: "log/journal"
+      acl: "posixacl"
 
