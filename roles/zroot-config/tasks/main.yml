@@ -31,7 +31,7 @@
   vars:
     cache_file: "zpool.cache"
     src_dir: "/etc/zfs"
-    src_file: "/etc/zfs{{ cache_file }}"
+    src_file: "/etc/zfs/{{ cache_file }}"
     dest_dir: "/mnt/etc/zfs"
-    dest_file: "/mnt/etc/zfs{{ cache_file }}"
+    dest_file: "/mnt/etc/zfs/{{ cache_file }}"
 
