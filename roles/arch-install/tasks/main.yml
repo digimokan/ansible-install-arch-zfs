@@ -3,10 +3,12 @@
     - name: "FAT32-format EFI boot partitions, with identical filesystem labels"
       filesystem:
         fstype: vfat
-        dev: "/dev/{{ item }}1"
+        dev: "/dev/{{ item_main }}1"
         force: yes
         opts: "-F32 -n {{ efi_fs_label }}"
       loop: "{{ arch_install_def_install_devices }}"
+      loop_control:
+        loop_var: item_main
     - name: "Create '/efi' directory for mounting EFI boot partition"
       file:
         path: "{{ efi_dir }}"
@@ -17,7 +19,7 @@
                    --target {{ efi_dir|quote }}
         warn: false
   vars:
-    efi_dir: "/efi"
+    efi_dir: "/mnt/efi"
     efi_fs_label: "EFIFS"
   # when: arch_install_def_motherboard_type == "uefi"
   when: arch_install_def_motherboard_type == "bios"

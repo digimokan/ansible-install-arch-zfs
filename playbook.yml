@@ -4,7 +4,7 @@
   tasks:
     - name: "Install the basic, minimal, zfs-based Arch Linux to the drive(s)"
       include_role:
-        name: "{{ item }}"
+        name: "{{ item_playbook }}"
       loop:
         - archiso-config
         - user-vars-chk
@@ -14,6 +14,8 @@
         - dataset-creation
         - zroot-config
         - arch-install
+      loop_control:
+        loop_var: item_playbook
       vars:
         disk_format_def_motherboard_type: "{{ play_fact_motherboard_type }}"
         disk_format_def_device_1: "{{ user_var_install_devices[0] }}"
