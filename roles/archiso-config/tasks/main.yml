@@ -35,3 +35,18 @@
     mirror_list: "/etc/pacman.d/mirrorlist"
     mirror_list_bkup: "{{ mirror_list }}_bkup"
 
+- name: "Remove all subdirs/files from '/mnt', which will be used for chroot"
+  block:
+    - name: "Create list of all subdirs/files in '/mnt'"
+      find:
+        path: "/mnt"
+        file_type: any
+      register: mnt_content
+    - name: "Remove all subdirs/files in '/mnt'"
+      file:
+        paths: "{{ item_main.path }}"
+        state: absent
+      loop: "{{ mnt_content }}"
+      loop_control:
+        loop_var: item_main
+

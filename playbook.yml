@@ -7,13 +7,13 @@
         name: "{{ item_playbook }}"
       loop:
         - archiso-config
-        - user-vars-chk
-        - play-fact-set
-        - disk-format
-        - pool-creation
-        - dataset-creation
-        - zroot-config
-        - arch-install
+        # - user-vars-chk
+        # - play-fact-set
+        # - disk-format
+        # - pool-creation
+        # - dataset-creation
+        # - zroot-config
+        # - arch-install
       loop_control:
         loop_var: item_playbook
       vars:
