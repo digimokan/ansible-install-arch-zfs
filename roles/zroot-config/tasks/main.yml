@@ -9,7 +9,7 @@
 
 - name: "Re-import the new zpool"
   command: zpool import -d /dev/disk/by-partlabel
-                        -R {{ zroot_config_def_arch_chroot|quote }}
+                        -R {{ zroot_config_def_arch_chroot_dir|quote }}
                         {{ zroot_config_def_zpool_name|quote }}
 
 - name: "Create 'zpool.cache' as required, and copy to zpool filesystem"

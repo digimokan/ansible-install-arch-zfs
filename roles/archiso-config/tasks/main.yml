@@ -40,3 +40,8 @@
     name: zfs
     state: present
 
+- name: "Unmount EFI boot partition from '[chroot]/efi', if it is mounted"
+  mount:
+    path: "{{ archiso_config_def_efi_chroot_dir }}"
+    state: unmounted
+

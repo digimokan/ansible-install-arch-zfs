@@ -25,5 +25,8 @@ const_var_boot_partlabel_base: "boot_partition"
 const_var_zfs_partlabel_base: "zfs_partition"
 
 # chroot dir: new-machine filesystem root will be placed here temporarily
-const_var_arch_chroot: "/mnt/archroot"
+const_var_arch_chroot_dir: "/mnt/archroot"
+
+# EFI dir: if UEFI motherboard, new machine must mount EFI ESP partition
+const_var_efi_chroot_dir: "{{ const_var_arch_chroot_dir }}/efi"
 

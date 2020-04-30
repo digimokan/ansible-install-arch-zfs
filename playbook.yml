@@ -18,6 +18,7 @@
         loop_var: item_playbook
       vars:
         archiso_config_def_zpool_name: "{{ user_var_zpool_name }}"
+        archiso_config_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
         disk_format_def_motherboard_type: "{{ play_fact_motherboard_type }}"
         disk_format_def_device_1: "{{ user_var_install_devices[0] }}"
         disk_format_def_device_2: "{{ 'none' if user_var_install_devices|length == 1 else user_var_install_devices[1] }}"
@@ -28,12 +29,12 @@
         pool_creation_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
         pool_creation_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
         pool_creation_def_zpool_name: "{{ user_var_zpool_name }}"
-        pool_creation_def_arch_chroot: "{{ const_var_arch_chroot }}"
+        pool_creation_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
         dataset_creation_def_zpool_name: "{{ user_var_zpool_name }}"
         zroot_config_def_zpool_name: "{{ user_var_zpool_name }}"
-        zroot_config_def_arch_chroot: "{{ const_var_arch_chroot }}"
+        zroot_config_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
         arch_install_def_install_devices: "{{ user_var_install_devices }}"
         arch_install_def_device_1_boot_partlabel: "{{ play_fact_device_1_boot_partlabel }}"
         arch_install_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
-        arch_install_def_arch_chroot: "{{ const_var_arch_chroot }}"
+        arch_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
 

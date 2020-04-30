@@ -5,3 +5,6 @@
 # zpool name
 archiso_config_def_zpool_name: "zroot"
 
+# chroot dir: new-machine filesystem root will be placed here temporarily
+archiso_config_def_efi_chroot_dir: "/mnt/archroot/efi"
+

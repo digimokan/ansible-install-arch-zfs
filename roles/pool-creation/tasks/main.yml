@@ -11,7 +11,7 @@
   # -O compress=on: use default compression algorithm for all pool datasets
   command: zpool create -f -d
               -m none
-              -R {{ pool_creation_def_arch_chroot|quote }}
+              -R {{ pool_creation_def_arch_chroot_dir|quote }}
               -O compress=on
               -o ashift=12
               -o feature@allocation_classes=enabled
