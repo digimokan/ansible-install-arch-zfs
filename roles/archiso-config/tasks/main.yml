@@ -6,8 +6,7 @@
 - name: "Sync pacman package database"
   pacman:
     update_cache: yes
-    update_cache_extra_args:
-      - "noconfirm"
+    update_cache_extra_args: "--noconfirm"
 
 - name: "Update mirror-server-list on the archiso live USB with fastest servers"
   block:
