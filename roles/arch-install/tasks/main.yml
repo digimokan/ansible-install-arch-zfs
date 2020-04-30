@@ -14,7 +14,9 @@
         path: "{{ efi_dir }}"
         state: directory
     - name: "Unmount EFI boot partition from '[chroot]/efi', if it is mounted"
-      command: umount {{ arch_install_def_arch_chroot }}/efi
+      mount:
+        path: "{{ efi_dir }}"
+        state: unmounted
     - name: "Mount EFI boot partition to '/efi' (random boot part, if mirrored)"
       command:
         cmd: mount --label {{ efi_fs_label|quote }}
