@@ -44,7 +44,7 @@
       register: mnt_content
     - name: "Remove all subdirs/files in '/mnt'"
       file:
-        paths: "{{ item_main.path }}"
+        path: "{{ item_main.path }}"
         state: absent
       loop: "{{ mnt_content.files }}"
       loop_control:
