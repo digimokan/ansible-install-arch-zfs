@@ -40,6 +40,9 @@
     name: zfs
     state: present
 
+- name: "Unmount all zfs filesystems"
+  command: zfs unmount -a
+
 - name: "Delete the existing zpool if it exists"
   command: zpool destroy -f {{ archiso_config_def_zpool_name|quote }}
   register: cmd_result
