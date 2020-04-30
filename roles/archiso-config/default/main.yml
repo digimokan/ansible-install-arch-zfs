@@ -1,0 +1,7 @@
+################################################################################
+# default variables: placeholders - should mostly override when using the role
+################################################################################
+
+# zpool name
+archiso_config_def_zpool_name: "zroot"
+
