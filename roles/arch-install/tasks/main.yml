@@ -11,15 +11,14 @@
         loop_var: item_main
     - name: "Create '/efi' directory for mounting EFI boot partition"
       file:
-        path: "{{ efi_dir }}"
+        path: "{{ arch_install_def_efi_chroot_dir }}"
         state: directory
     - name: "Mount EFI boot partition to '/efi' (random boot part, if mirrored)"
       command:
         cmd: mount --label {{ efi_fs_label|quote }}
-                   --target {{ efi_dir|quote }}
+                   --target {{ arch_install_def_efi_chroot_dir|quote }}
         warn: false
   vars:
-    efi_dir: "{{ arch_install_def_efi_chroot_dir }}/efi"
     efi_fs_label: "EFIFS"
   # when: arch_install_def_motherboard_type == "uefi"
   when: arch_install_def_motherboard_type == "bios"
