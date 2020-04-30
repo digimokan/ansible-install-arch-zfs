@@ -14,11 +14,11 @@
       pacman:
         name: reflector
         state: present
-    - name: "Check if the mirror-server-list has already been updated"
+    - name: "Check if the mirror-server-list backup copy already exists"
       stat:
         path: "{{ mirror_list_bkup }}"
       register: bkup_file
-    - name: "Copy the sorted list of fastest mirror-servers to archiso"
+    - name: "Create backup copy of mirror-list, if it does not exist"
       copy:
         src: "{{ mirror_list }}"
         dest: "{{ mirror_list_bkup }}"
