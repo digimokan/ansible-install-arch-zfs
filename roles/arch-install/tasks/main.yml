@@ -22,12 +22,20 @@
   when: arch_install_def_motherboard_type == "bios"
 
 - name: "Generate the new-machine /etc/fstab, based on current archiso mounts"
-  # -p: exclude pseudofs mounts (the default behavior)
-  # -t LABEL: use filesystem-labels as the source IDs in fstab
-  command: genfstab -p
-                    -t LABEL
-                    {{ arch_install_def_arch_chroot_dir|quote }}
-                    >> {{ arch_install_def_arch_chroot_dir|quote }}/etc/fstab
+  block:
+    - name: "Create the /etc/fstab directory, if it does not exist"
+      file:
+        path: "{{ chroot_etc_dir }}"
+        state: directory
+    - name: "Generate the /etc/fstab, and place it in the archroot dir"
+      # -p: exclude pseudofs mounts (the default behavior)
+      # -t LABEL: use filesystem-labels as the source IDs in fstab
+      command: genfstab -p
+                        -t LABEL
+                        {{ arch_install_def_arch_chroot_dir|quote }}
+                        >> {{ chroot_etc_dir }}/fstab
+  vars:
+    chroot_etc_dir: "{{ arch_install_def_arch_chroot_dir }}/etc"
 
 # - name: "Run 'pacstrap' cmd to install base system to installation disk(s)"
 #   command: pacstrap /mnt base base-devel
