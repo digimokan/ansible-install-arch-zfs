@@ -13,6 +13,9 @@ arch_install_def_install_devices:
 arch_install_def_device_1_boot_partlabel: "boot_partition"
 arch_install_def_device_2_boot_partlabel: "boot_partition_mirror1"
 
-# chroot dir: new-machine filesystem root will be placed here temporarily
+# EFI dir: if UEFI motherboard, new machine must mount EFI ESP partition
 arch_install_def_efi_chroot_dir: "/mnt/archroot/efi"
+
+# EFI filesystem label used to mount EFI ESP via legacy fstab
+arch_install_def_efi_fs_label: "EFIFS"
 

@@ -5,6 +5,6 @@
 # zpool name
 archiso_config_def_zpool_name: "zroot"
 
-# chroot dir: new-machine filesystem root will be placed here temporarily
+# EFI dir: if UEFI motherboard, new machine must mount EFI ESP partition
 archiso_config_def_efi_chroot_dir: "/mnt/archroot/efi"
 
