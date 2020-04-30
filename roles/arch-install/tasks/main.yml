@@ -14,9 +14,9 @@
     - name: "Mount EFI boot partition to '/efi' (random boot part, if mirrored)"
       command: mount --label {{ efi_fs_label|quote }}
                      --target {{ efi_dir|quote }}
-    - vars:
-        efi_dir: "/efi"
-        efi_fs_label: "EFIFS"
+  vars:
+    efi_dir: "/efi"
+    efi_fs_label: "EFIFS"
   # when: arch_install_def_motherboard_type == "uefi"
   when: arch_install_def_motherboard_type == "bios"
 
