@@ -40,36 +40,3 @@
     name: zfs
     state: present
 
-- name: "Unmount all zfs filesystems"
-  command: zfs unmount -f -a
-
-- name: "Delete the existing zpool if it exists"
-  command: zpool destroy -f {{ archiso_config_def_zpool_name|quote }}
-  register: cmd_result
-  failed_when: cmd_result.rc >= 2
-
-- name: "Unmount EFI boot partition from '/mnt/efi', if it exists"
-  block:
-    - name: "Check if '/mnt/efi' exists"
-      stat:
-        path: "/mnt/efi"
-      register: mnt_efi_dir
-    - name: "Unmount EFI boot partition from '/mnt/efi'"
-      command: umount /mnt/efi
-      when: mnt_efi_dir.stat.exists
-
-- name: "Remove all subdirs/files from '/mnt', which will be used for chroot"
-  block:
-    - name: "Create list of all subdirs/files in '/mnt'"
-      find:
-        path: "/mnt"
-        file_type: any
-      register: mnt_content
-    - name: "Remove all subdirs/files in '/mnt'"
-      file:
-        path: "{{ item_main.path }}"
-        state: absent
-      loop: "{{ mnt_content.files }}"
-      loop_control:
-        loop_var: item_main
-

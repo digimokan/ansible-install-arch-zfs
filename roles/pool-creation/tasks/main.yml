@@ -1,10 +1,18 @@
+- name: "Delete the existing zpool if it exists"
+  command: zpool destroy -f {{ pool_creation_def_zpool_name|quote  }}
+  register: cmd_result
+  failed_when: cmd_result.rc >= 2
+
 - name: "Create the new zpool on the installation disk(s)"
   # -f: force creation, clobbering vdev metadata if it exists
   # -d: do not enable any features - specify features individually with -o
   # -m none: don't set persistent mountpoint for /[zpool_name] pool root dataset
-  # -R /mnt: mount zpool temporarily on /mnt, and don't use cachefile
+  # -R [mount_dir]: mount zpool temporarily on [mount_dir], and don't use cachefile
   # -O compress=on: use default compression algorithm for all pool datasets
-  command: zpool create -f -d -m none -R /mnt -O compress=on
+  command: zpool create -f -d
+              -m none
+              -R {{ pool_creation_def_arch_chroot|quote }}
+              -O compress=on
               -o ashift=12
               -o feature@allocation_classes=enabled
               -o feature@async_destroy=enabled

@@ -13,13 +13,15 @@
       file:
         path: "{{ efi_dir }}"
         state: directory
+    - name: "Unmount EFI boot partition from '[chroot]/efi', if it is mounted"
+      command: umount {{ archiso_config_def_arch_chroot }}/efi
     - name: "Mount EFI boot partition to '/efi' (random boot part, if mirrored)"
       command:
         cmd: mount --label {{ efi_fs_label|quote }}
                    --target {{ efi_dir|quote }}
         warn: false
   vars:
-    efi_dir: "/mnt/efi"
+    efi_dir: "{{ arch_install_def_arch_chroot }}/efi"
     efi_fs_label: "EFIFS"
   # when: arch_install_def_motherboard_type == "uefi"
   when: arch_install_def_motherboard_type == "bios"

@@ -13,3 +13,6 @@ arch_install_def_install_devices:
 arch_install_def_device_1_boot_partlabel: "boot_partition"
 arch_install_def_device_2_boot_partlabel: "boot_partition_mirror1"
 
+# chroot dir: new-machine filesystem root will be placed here temporarily
+arch_install_def_arch_chroot: "/mnt/archroot"
+

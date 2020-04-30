@@ -10,3 +10,6 @@ pool_creation_def_device_2_zfs_partlabel: "zfs_partition_mirror1"
 # zpool name
 pool_creation_def_zpool_name: "zroot"
 
+# chroot dir: new-machine filesystem root will be placed here temporarily
+pool_creation_def_arch_chroot: "/mnt/archroot"
+

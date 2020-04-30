@@ -8,7 +8,9 @@
   command: zpool export {{ zroot_config_def_zpool_name|quote }}
 
 - name: "Re-import the new zpool"
-  command: zpool import -d /dev/disk/by-partlabel -R /mnt {{ zroot_config_def_zpool_name|quote }}
+  command: zpool import -d /dev/disk/by-partlabel
+                        -R {{ zroot_config_def_arch_chroot|quote }}
+                        {{ zroot_config_def_zpool_name|quote }}
 
 - name: "Create 'zpool.cache' as required, and copy to zpool filesystem"
   block:
@@ -34,6 +36,6 @@
     cache_file: "zpool.cache"
     src_dir: "/etc/zfs"
     src_file: "/etc/zfs/{{ cache_file }}"
-    dest_dir: "/mnt/etc/zfs"
-    dest_file: "/mnt/etc/zfs/{{ cache_file }}"
+    dest_dir: "{{ zroot_config_def_zpool_name }}/etc/zfs"
+    dest_file: "{{ zroot_config_def_zpool_name }}/etc/zfs/{{ cache_file }}"
 
