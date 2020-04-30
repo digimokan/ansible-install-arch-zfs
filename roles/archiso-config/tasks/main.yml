@@ -23,7 +23,7 @@
         src: "{{ mirror_list }}"
         dest: "{{ mirror_list_bkup }}"
       when: bkup_file.stat.exists == false
-    - name: "Search available Arch mirrors, and select the fastest servers"
+    - name: "Find fastest servers, and replace the current archiso mirror-list"
       command: reflector --country 'United States'
                          --latest '200'
                          --protocol 'http'

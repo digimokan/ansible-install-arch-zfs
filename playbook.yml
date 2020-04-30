@@ -13,6 +13,7 @@
         - pool-creation
         - dataset-creation
         - zroot-config
+        - arch-install
       vars:
         disk_format_def_motherboard_type: "{{ play_fact_motherboard_type }}"
         disk_format_def_device_1: "{{ user_var_install_devices[0] }}"

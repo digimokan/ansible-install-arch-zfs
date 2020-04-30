@@ -1,0 +1,3 @@
+- name: "Run 'pacstrap' cmd to install base system to installation disk(s)"
+  command: pacstrap /mnt base base-devel
+
