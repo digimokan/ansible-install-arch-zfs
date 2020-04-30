@@ -36,5 +36,6 @@
         arch_install_def_install_devices: "{{ user_var_install_devices }}"
         arch_install_def_device_1_boot_partlabel: "{{ play_fact_device_1_boot_partlabel }}"
         arch_install_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
+        arch_install_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
         arch_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
 

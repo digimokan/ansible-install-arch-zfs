@@ -21,6 +21,14 @@
   # when: arch_install_def_motherboard_type == "uefi"
   when: arch_install_def_motherboard_type == "bios"
 
+- name: "Generate the new-machine /etc/fstab, based on current archiso mounts"
+  # -p: exclude pseudofs mounts (the default behavior)
+  # -t LABEL: use filesystem-labels as the source IDs in fstab
+  command: genfstab -p
+                    -t LABEL
+                    {{ arch_install_def_arch_chroot_dir|quote }}
+                    >> {{ arch_install_def_arch_chroot_dir|quote }}/etc/fstab
+
 # - name: "Run 'pacstrap' cmd to install base system to installation disk(s)"
 #   command: pacstrap /mnt base base-devel
 
