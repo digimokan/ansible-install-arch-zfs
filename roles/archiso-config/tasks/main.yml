@@ -46,7 +46,7 @@
       file:
         paths: "{{ item_main.path }}"
         state: absent
-      loop: "{{ mnt_content }}"
+      loop: "{{ mnt_content.files }}"
       loop_control:
         loop_var: item_main
 
