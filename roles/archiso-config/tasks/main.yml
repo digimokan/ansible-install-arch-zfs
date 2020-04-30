@@ -45,8 +45,8 @@
   register: cmd_result
   failed_when: cmd_result.rc >= 2
 
-# - name: "Unmount all zfs filesystems (some dirs may exist in '/mnt')"
-#   command: zfs unmount -f -a
+- name: "Unmount EFI boot partition from '/mnt/efi', if it exists"
+  command: unmount /mnt/efi
 
 - name: "Remove all subdirs/files from '/mnt', which will be used for chroot"
   block:
