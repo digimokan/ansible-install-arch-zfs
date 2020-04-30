@@ -5,7 +5,7 @@
         fstype: vfat
         dev: "/dev/{{ item_main }}1"
         force: yes
-        opts: "-F32 -n {{ efi_fs_label }}"
+        opts: "-F32 -n {{ arch_install_def_efi_fs_label }}"
       loop: "{{ arch_install_def_install_devices }}"
       loop_control:
         loop_var: item_main
