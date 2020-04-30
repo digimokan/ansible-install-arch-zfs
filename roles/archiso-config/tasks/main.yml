@@ -1,0 +1,32 @@
+- name: "Start systemd-timesyncd to ensure system clock is accurate"
+  service:
+    name: systemd-timesyncd
+    state: started
+
+- name: "Update mirror-server-list on the archiso live USB with fastest servers"
+  block:
+    - name: "Install reflector package"
+      pacman:
+        name: reflector
+        state: present
+    - name: "Check if the mirror-server-list has already been updated"
+      stat:
+        path: "{{ mirror_list_bkup }}"
+      register: bkup_file
+    - name: "Copy the sorted list of fastest mirror-servers to archiso"
+      copy:
+        src: "{{ mirror_list }}"
+        dest: "{{ mirror_list_bkup }}"
+      when: bkup_file.stat.exists == false
+    - name: "Search available Arch mirrors, and select the fastest servers"
+      command: reflector --country 'United States'
+                         --latest '200'
+                         --protocol 'http'
+                         --protocol 'https'
+                         --sort 'rate'
+                         --save {{ mirror_list|quote }}
+      when: bkup_file.stat.exists == false
+  vars:
+    mirror_list: "/etc/pacman.d/mirrorlist"
+    mirror_list_bkup: "{{ mirror_list }}_bkup"
+

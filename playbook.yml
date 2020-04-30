@@ -1,16 +1,12 @@
 - hosts: localhost
   become: true
   connection: local
-  pre_tasks:
-    - name: "Start systemd-timesyncd to ensure system clock is accurate"
-      service:
-        name: systemd-timesyncd
-        state: started
   tasks:
     - name: "Install the basic, minimal, zfs-based Arch Linux to the drive(s)"
       include_role:
         name: "{{ item }}"
       loop:
+        - archiso-config
         - user-vars-chk
         - play-fact-set
         - disk-format

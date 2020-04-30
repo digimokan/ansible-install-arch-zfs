@@ -145,6 +145,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 │ ├── group_vars/         # required user-vars, and constant playbook vars
 │ │
 │ ├─┬ roles/
+│ │ ├── archiso-config/   # performs initial config of the live USB OS
 │ │ ├── dataset-creation/ # creates reasonable set of system/user datasets
 │ │ ├── disk-format/      # formats install disk(s) with boot/zfs partitions
 │ │ ├── play-fact-set/    # initial calc/set of play-wide vars
