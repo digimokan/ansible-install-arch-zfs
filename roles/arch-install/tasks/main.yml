@@ -12,9 +12,10 @@
         path: "{{ efi_dir }}"
         state: directory
     - name: "Mount EFI boot partition to '/efi' (random boot part, if mirrored)"
-      command: mount --label {{ efi_fs_label|quote }}
-                     --target {{ efi_dir|quote }}
-      warn: false
+      command:
+        cmd: mount --label {{ efi_fs_label|quote }}
+                   --target {{ efi_dir|quote }}
+        warn: false
   vars:
     efi_dir: "/efi"
     efi_fs_label: "EFIFS"
