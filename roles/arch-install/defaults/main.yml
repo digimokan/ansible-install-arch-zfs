@@ -1,0 +1,15 @@
+################################################################################
+# default variables: placeholders - should mostly override when using the role
+################################################################################
+
+# motherboard type: specify "bios" or "uefi"
+arch_install_def_motherboard_type: "bios"
+
+# list of devices to install Arch Linux to
+arch_install_def_install_devices:
+  - "sda"
+
+# disk boot partition labels
+arch_install_def_device_1_boot_partlabel: "boot_partition"
+arch_install_def_device_2_boot_partlabel: "boot_partition_mirror1"
+

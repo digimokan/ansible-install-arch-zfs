@@ -1,3 +1,24 @@
-- name: "Run 'pacstrap' cmd to install base system to installation disk(s)"
-  command: pacstrap /mnt base base-devel
+- name: "Create EFI partition filesystem(s), and mount"
+  block:
+    - name: "FAT32-format EFI boot partitions, with identical filesystem labels"
+      filesystem:
+        fstype: vfat
+        dev: "/dev/{{ item }}1"
+        force: yes
+        opts: "-F32 -n {{ efi_fs_label }}"
+      loop: "{{ arch_install_def_install_devices }}"
+    - name: "Create '/efi' directory for mounting EFI boot partition"
+      file:
+        path: "{{ efi_dir }}"
+        state: directory
+    - name: "Mount EFI boot partition to '/efi' (random boot part, if mirrored)"
+      command: mount --label {{ efi_fs_label }} --target {{ efi_dir|quote }}
+    vars:
+      efi_dir: "/efi"
+      efi_fs_label: "EFIFS"
+  # when: arch_install_def_motherboard_type == "uefi"
+  when: arch_install_def_motherboard_type == "bios"
+
+# - name: "Run 'pacstrap' cmd to install base system to installation disk(s)"
+#   command: pacstrap /mnt base base-devel
 
