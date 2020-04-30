@@ -46,7 +46,14 @@
   failed_when: cmd_result.rc >= 2
 
 - name: "Unmount EFI boot partition from '/mnt/efi', if it exists"
-  command: umount /mnt/efi
+  block:
+    - name: "Check if '/mnt/efi' exists"
+      stat:
+        path: "/mnt/efi"
+      register: mnt_efi_dir
+    - name: "Unmount EFI boot partition from '/mnt/efi'"
+      command: umount /mnt/efi
+      when: mnt_efi_dir.stat.exists
 
 - name: "Remove all subdirs/files from '/mnt', which will be used for chroot"
   block:
