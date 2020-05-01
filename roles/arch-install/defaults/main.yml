@@ -28,3 +28,6 @@ arch_install_def_time_zone_file: "Canada/Central"
 # Locale to set (available locales are in /etc/locale.gen)
 arch_install_def_locale: "en_US.UTF-8"
 
+# Virtual console keyboard-layout KEYMAP to set (view `localectl list-keymaps`)
+arch_install_def_keymap: "us"
+

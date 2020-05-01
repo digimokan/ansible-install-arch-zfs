@@ -1,0 +1,8 @@
+- name: "Set the virtual console keyboard-layout keymap, in /etc/vconsole.conf"
+  lineinfile:
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc/vconsole.conf"
+    line: "KEYMAP={{ arch_install_def_keymap }}"
+    insertafter: EOF
+    state: present
+    create: yes
+

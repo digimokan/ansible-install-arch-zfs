@@ -18,3 +18,6 @@
 - name: "Set the locale"
   include_tasks: set_locale.yml
 
+- name: "Set the keyboard layout"
+  include_tasks: set_keyb_layout.yml
+
