@@ -1,43 +1,10 @@
-- name: "Create EFI partition filesystem(s), and mount"
-  block:
-    - name: "FAT32-format EFI boot partitions, with identical filesystem labels"
-      filesystem:
-        fstype: vfat
-        dev: "/dev/{{ item_main }}1"
-        force: yes
-        opts: "-F32 -n {{ arch_install_def_efi_fs_label }}"
-      loop: "{{ arch_install_def_install_devices }}"
-      loop_control:
-        loop_var: item_main
-    - name: "Create '/efi' directory for mounting EFI boot partition"
-      file:
-        path: "{{ arch_install_def_efi_chroot_dir }}"
-        state: directory
-    - name: "Mount EFI boot partition to '/efi' (random boot part, if mirrored)"
-      command:
-        cmd: mount --label {{ arch_install_def_efi_fs_label|quote }}
-                   --target {{ arch_install_def_efi_chroot_dir|quote }}
-        warn: false
+- name: "Create EFI ESP (extended sys partition) filesystem(s), and mount"
+  include_tasks: mount_esp.yml
   # when: arch_install_def_motherboard_type == "uefi"
   when: arch_install_def_motherboard_type == "bios"
 
-- name: "Generate the new-machine /etc/fstab, based on current archiso mounts"
-  block:
-    - name: "Create the /etc/fstab directory, if it does not exist"
-      file:
-        path: "{{ chroot_etc_dir }}"
-        state: directory
-    - name: "Generate the /etc/fstab content"
-      # -p: exclude pseudofs mounts (the default behavior)
-      # -t LABEL: use filesystem-labels as the source IDs in fstab
-      command: genfstab -p
-                        -t LABEL
-                        {{ arch_install_def_arch_chroot_dir|quote }}
-      register: genfstab_out
-    - name: "Put the /etc/fstab content into the new machine /etc/fstab"
-      copy:
-        content: "{{ genfstab_out.stdout }}\n\n"
-        dest: "{{ chroot_etc_dir }}/fstab"
+- name: "Generate /etc/fstab file, based on current archiso mounts"
+  include_tasks: gen_fstab.yml
   vars:
     chroot_etc_dir: "{{ arch_install_def_arch_chroot_dir }}/etc"
 
@@ -45,17 +12,9 @@
   command: pacstrap {{ arch_install_def_arch_chroot_dir|quote }}
                     base base-devel
 
-- name: "Set time zone"
-  file:
-    src: "{{ arch_install_def_arch_chroot_dir }}/usr/share/zoneinfo/{{ arch_install_def_time_zone_file }}"
-    dest: "{{ arch_install_def_arch_chroot_dir }}/etc/localtime"
-    state: link
-    force: yes
-
-- name: "Set hardware clock and system clock"
-  command: hwclock --systohc
-                   --adjfile={{ arch_install_def_arch_chroot_dir }}/etc/adjtime
+- name: "Set the hardware clock, system clock, and time zone"
+  include_tasks: set_time.yml
 
 - name: "Set the locale"
-  include_tasks: gen_locale.yml
+  include_tasks: set_locale.yml
 

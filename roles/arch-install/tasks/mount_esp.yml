@@ -1,0 +1,21 @@
+- name: "FAT32-format EFI ESP boot partitions, with identical filesystem labels"
+  filesystem:
+    fstype: vfat
+    dev: "/dev/{{ item_main }}1"
+    force: yes
+    opts: "-F32 -n {{ arch_install_def_efi_fs_label }}"
+  loop: "{{ arch_install_def_install_devices }}"
+  loop_control:
+    loop_var: item_main
+
+- name: "Create '/efi' directory for mounting EFI ESP boot partition"
+  file:
+    path: "{{ arch_install_def_efi_chroot_dir }}"
+    state: directory
+
+- name: "Mount EFI ESP boot partition to '/efi' (random boot part, if mirrored)"
+  command:
+    cmd: mount --label {{ arch_install_def_efi_fs_label|quote }}
+               --target {{ arch_install_def_efi_chroot_dir|quote }}
+    warn: false
+
