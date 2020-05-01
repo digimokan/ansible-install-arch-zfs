@@ -29,9 +29,9 @@
         dest: "{{ archiso_locale_archive }}"
   vars:
     archiso_locale_gen: "/etc/locale.gen"
-    archiso_locale_gen_temp: "{{ archiso_locale_gen }}_temp"
+    archiso_locale_gen_temp: "/tmp/locale.gen_temp"
     archiso_locale_archive: "/usr/lib/locale/locale-archive"
-    archiso_locale_archive_temp: "{{ archiso_locale_archive }}_temp"
+    archiso_locale_archive_temp: "/tmp/locale-archive_temp"
     target_locale_gen: "{{ arch_install_def_arch_chroot_dir }}/etc/locale.gen"
     target_locale_archive: "{{ arch_install_def_arch_chroot_dir }}/usr/lib/locale/locale-archive"
 
