@@ -1,0 +1,7 @@
+- name: "Check presence of archzfs repo keys on new machine keyring"
+  # note: the keys were installed with pacstrap, if installing from zfs archiso
+  command: pacman-key --list-keys
+                      --config {{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf
+                      --gpgdir {{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg
+                      {{ arch_install_def_archzfs_repo_key|quote }}
+

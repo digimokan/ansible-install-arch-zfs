@@ -24,3 +24,6 @@
 - name: "Set the hostname, and create /etc/hosts routing entries"
   include_tasks: set_hostname.yml
 
+- name: "Add archzfs repo keys, configure 'pacman.conf', install archzfs kernels"
+  include_tasks: add_archzfs.yml
+
