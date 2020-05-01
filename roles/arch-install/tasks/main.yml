@@ -36,7 +36,7 @@
       register: genfstab_out
     - name: "Put the /etc/fstab content into the new machine /etc/fstab"
       copy:
-        content: "{{ genfstab_out.stdout }}\n"
+        content: "{{ genfstab_out.stdout }}\n\n"
         dest: "{{ chroot_etc_dir }}/fstab"
   vars:
     chroot_etc_dir: "{{ arch_install_def_arch_chroot_dir }}/etc"
