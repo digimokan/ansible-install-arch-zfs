@@ -1,39 +1,33 @@
-- name: "Generate the locale"
+- name: "Generate the locale-archive file, using the specified locale"
   block:
-    # - name: "Move the archiso locale.gen file to a temp file"
-    #   command: mv {{ archiso_locale_gen|quote }} {{ archiso_locale_gen_temp|quote }}
-    # - name: "Move the archiso locale-archive file to a temp file"
-    #   command: mv {{ archiso_locale_archive|quote }} {{ archiso_locale_archive_temp|quote }}
+    - name: "Move the archiso locale.gen file to a temp file"
+      command: mv {{ archiso_locale_gen|quote }} {{ archiso_locale_gen_temp|quote }}
+    - name: "Move the archiso locale-archive file to a temp file"
+      command: mv {{ archiso_locale_archive|quote }} {{ archiso_locale_archive_temp|quote }}
     - name: "Configure the target locale-gen file, by setting the last line"
       lineinfile:
         path: "{{ target_locale_gen }}"
         line: "{{ arch_install_def_locale }} UTF-8"
         insertafter: EOF
         state: present
-    - name: "Try appending to locale-gen again"
-      lineinfile:
-        path: "{{ target_locale_gen }}"
-        line: "{{ arch_install_def_locale }} UTF-8"
-        insertafter: EOF
-        state: present
-    # - name: "Copy the target locale-gen file to the archiso"
-    #   copy:
-    #     src: "{{ target_locale_gen }}"
-    #     dest: "{{ archiso_locale_gen }}"
-    # - name: "Use the target locale-gen to generate the locale-archive"
-    #   command: locale-gen
-    # - name: "Copy the generated locale-archive to the new machine"
-    #   copy:
-    #     src: "{{ archiso_locale_archive }}"
-    #     dest: "{{ target_locale_archive }}"
-    # - name: "Restore the original locale-gen file to the archiso"
-    #   copy:
-    #     src: "{{ archiso_locale_gen_temp }}"
-    #     dest: "{{ archiso_locale_gen }}"
-    # - name: "Restore the original locale-archive file to the archiso"
-    #   copy:
-    #     src: "{{ archiso_locale_archive_temp }}"
-    #     dest: "{{ archiso_locale_archive }}"
+    - name: "Copy the target locale-gen file to the archiso"
+      copy:
+        src: "{{ target_locale_gen }}"
+        dest: "{{ archiso_locale_gen }}"
+    - name: "Use the target locale-gen to generate the locale-archive"
+      command: locale-gen
+    - name: "Copy the generated locale-archive to the new machine"
+      copy:
+        src: "{{ archiso_locale_archive }}"
+        dest: "{{ target_locale_archive }}"
+    - name: "Restore the original locale-gen file to the archiso"
+      copy:
+        src: "{{ archiso_locale_gen_temp }}"
+        dest: "{{ archiso_locale_gen }}"
+    - name: "Restore the original locale-archive file to the archiso"
+      copy:
+        src: "{{ archiso_locale_archive_temp }}"
+        dest: "{{ archiso_locale_archive }}"
   vars:
     archiso_locale_gen: "/etc/locale.gen"
     archiso_locale_gen_temp: "/tmp/locale.gen_temp"
@@ -42,11 +36,11 @@
     target_locale_gen: "{{ arch_install_def_arch_chroot_dir }}/etc/locale.gen"
     target_locale_archive: "{{ arch_install_def_arch_chroot_dir }}/usr/lib/locale/locale-archive"
 
-# - name: "Set the locale LANG environment var in 'locale.conf'"
-#   lineinfile:
-#     path: "{{ arch_install_def_arch_chroot_dir }}/etc/locale.conf"
-#     line: "LANG={{ arch_install_def_locale }}"
-#     insertafter: EOF
-#     state: present
-#     create: yes
+- name: "Set LANG environment var in 'locale.conf' to the specified locale"
+  lineinfile:
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc/locale.conf"
+    line: "LANG={{ arch_install_def_locale }}"
+    insertafter: EOF
+    state: present
+    create: yes
 
