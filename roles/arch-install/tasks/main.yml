@@ -56,15 +56,6 @@
   command: hwclock --systohc
                    --adjfile={{ arch_install_def_arch_chroot_dir }}/etc/adjtime
 
-- name: "Set the locale-file to generate, by appending to /etc/locale.gen"
-  lineinfile:
-    path: "{{ arch_install_def_arch_chroot_dir }}/etc/locale.gen"
-    line: "{{ arch_install_def_locale }} UTF-8"
-    state: present
-
-- name: "Set locale-gen again, to see what happens"
-  lineinfile:
-    path: "{{ arch_install_def_arch_chroot_dir }}/etc/locale.gen"
-    line: "{{ arch_install_def_locale }} UTF-8"
-    state: present
+- name: "Set the locale"
+  include_tasks: gen_locale.yml
 
