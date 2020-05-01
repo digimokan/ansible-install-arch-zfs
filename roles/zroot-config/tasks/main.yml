@@ -35,7 +35,7 @@
   vars:
     cache_file: "zpool.cache"
     src_dir: "/etc/zfs"
-    src_file: "/etc/zfs/{{ cache_file }}"
-    dest_dir: "{{ zroot_config_def_zpool_name }}/etc/zfs"
-    dest_file: "{{ zroot_config_def_zpool_name }}/etc/zfs/{{ cache_file }}"
+    src_file: "{{ src_dir }}/{{ cache_file }}"
+    dest_dir: "{{ zroot_config_def_arch_chroot_dir }}/etc/zfs"
+    dest_file: "{{ dest_dir }}/{{ cache_file }}"
 
