@@ -26,18 +26,29 @@
       --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
 
 - name: "Add 'archzfs-kernels' repo to chroot pacman.conf"
-  lineinfile:
-    path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-    line: "[archzfs-kernels]\nServer = http://end.re/$repo\n"
-    insertbefore: "^\[core\]$"
-    state: present
+  block:
+  - name: "Add 'archzfs-kernels' repo to chroot pacman.conf"
+    lineinfile:
+      path: "{{ pacman_conf_file }}"
+      line: "[archzfs-kernels]\n\n"
+      insertbefore: "^\[core\]$"
+      state: present
+  - name: "Add 'archzfs-kernels' repo to chroot pacman.conf"
+    lineinfile:
+      path: "{{ pacman_conf_file }}"
+      line: 'Server = http://end.re/$repo'
+      insertafter: "^\[archzfs-kernels\]$"
+      state: present
+  vars:
+    pacman_conf_file: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
 
-- name: "Add 'archzfs-kernels' repo to chroot pacman.conf AGAIN....."
-  lineinfile:
-    path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-    line: "[archzfs-kernels]\nServer = http://end.re/$repo\n"
-    insertbefore: "^\[core\]$"
-    state: present
+
+# - name: "Add 'archzfs-kernels' repo to chroot pacman.conf AGAIN....."
+#   lineinfile:
+#     path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
+#     line: "[archzfs-kernels]\nServer = http://end.re/$repo\n"
+#     insertbefore: "^\[core\]$"
+#     state: present
 
 # - name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
 #   pacman:
