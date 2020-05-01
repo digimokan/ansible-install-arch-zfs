@@ -27,13 +27,17 @@
       file:
         path: "{{ chroot_etc_dir }}"
         state: directory
-    - name: "Generate the /etc/fstab, and place it in the archroot dir"
+    - name: "Generate the /etc/fstab content"
       # -p: exclude pseudofs mounts (the default behavior)
       # -t LABEL: use filesystem-labels as the source IDs in fstab
       command: genfstab -p
                         -t LABEL
                         {{ arch_install_def_arch_chroot_dir|quote }}
-                        >> {{ chroot_etc_dir }}/fstab
+      register: genfstab_out
+    - name: "Put the /etc/fstab content into the new machine /etc/fstab"
+      copy:
+        content: genfstab_out.stdout
+        dest: "{{ chroot_etc_dir }}/fstab"
   vars:
     chroot_etc_dir: "{{ arch_install_def_arch_chroot_dir }}/etc"
 
