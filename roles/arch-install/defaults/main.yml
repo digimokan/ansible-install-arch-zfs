@@ -25,3 +25,6 @@ arch_install_def_efi_fs_label: "EFIFS"
 # Time Zone file to use in '/usr/share/zoneinfo'
 arch_install_def_time_zone_file: "Canada/Central"
 
+# Locale to set (available locales are in /etc/locale.gen)
+arch_install_def_locale: "en_US.UTF-8"
+
