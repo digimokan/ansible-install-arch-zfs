@@ -1,7 +1,40 @@
-- name: "Check presence of archzfs repo keys on new machine keyring"
-  # note: the keys were installed with pacstrap, if installing from zfs archiso
-  command: pacman-key --list-keys
-                      --config {{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf
-                      --gpgdir {{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg
-                      {{ arch_install_def_archzfs_repo_key|quote }}
+- name: "Add archzfs repo key and sign it"
+  block:
+  - name: "Import the archzfs-repo-key to the new machine pacman keyring"
+    command: pacman-key --recv-keys
+                        --config {{ pacman_conf_file|quote }}
+                        --gpgdir {{ pacman_keyring_dir|quote }}
+                        {{ arch_install_def_archzfs_repo_key|quote }}
+  - name: "Sign the imported archzfs-repo-key"
+    command: pacman-key --lsign-key
+                        --config {{ pacman_conf_file|quote }}
+                        --gpgdir {{ pacman_keyring_dir|quote }}
+                        {{ arch_install_def_archzfs_repo_key|quote }}
+  var:
+    pacman_conf_file: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
+    pacman_keyring_dir: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
+
+- name: "Refresh chroot pacman database"
+  pacman:
+    update_cache: yes
+    update_cache_extra_args: >-
+      --root "{{ arch_install_def_arch_chroot_dir }}"
+      --config "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
+      --cachedir "{{ arch_install_def_arch_chroot_dir }}/var/cache/pacman/pkg"
+      --gpgdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
+      --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
+      --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
+
+# - name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
+#   pacman:
+#     name:
+#       - "archzfs-linux"
+#       - "archzfs-linux-lts"
+#     extra_args: >-
+#       --root "{{ arch_install_def_arch_chroot_dir }}"
+#       --config "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
+#       --cachedir "{{ arch_install_def_arch_chroot_dir }}/var/cache/pacman/pkg"
+#       --gpgdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
+#       --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
+#       --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
 
