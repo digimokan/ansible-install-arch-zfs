@@ -22,3 +22,6 @@ arch_install_def_efi_chroot_dir: "/mnt/archroot/efi"
 # EFI filesystem label used to mount EFI ESP via legacy fstab
 arch_install_def_efi_fs_label: "EFIFS"
 
+# Time Zone file to use in '/usr/share/zoneinfo'
+arch_install_def_time_zone_file: "Canada/Central"
+
