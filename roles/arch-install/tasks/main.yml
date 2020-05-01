@@ -21,3 +21,6 @@
 - name: "Set the keyboard layout"
   include_tasks: set_keyb_layout.yml
 
+- name: "Set the hostname, and create /etc/hosts routing entries"
+  include_tasks: set_hostname.yml
+

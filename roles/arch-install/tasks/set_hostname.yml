@@ -1,0 +1,21 @@
+- name: "Create the /etc/hostname file, and add the new machine hostname to it"
+  lineinfile:
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc/hostname"
+    line: "{{ arch_install_def_hostname }}"
+    insertafter: EOF
+    state: present
+    create: yes
+
+- name: "Add routing entries to /etc/hosts"
+  blockinfile:
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc/hosts"
+    block: |
+      \n
+      # IP-Addr Canonical-Hostname    Alias     Alias...
+      # ------  ------------------    -----     --------
+      127.0.0.1 localhost
+      ::1       localhost
+      127.0.1.1 {{ arch_install_def_hostname }}.localdomain {{ arch_install_def_hostname }}
+    insertafter: EOF
+    state: present
+

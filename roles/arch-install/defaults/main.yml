@@ -31,3 +31,6 @@ arch_install_def_locale: "en_US.UTF-8"
 # Virtual console keyboard-layout KEYMAP to set (view `localectl list-keymaps`)
 arch_install_def_keymap: "us"
 
+# Hostname of the new machine
+arch_install_def_hostname: "omegarig"
+
