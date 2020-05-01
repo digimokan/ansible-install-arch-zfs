@@ -45,3 +45,14 @@
   command: pacstrap {{ arch_install_def_arch_chroot_dir|quote }}
                     base base-devel
 
+- name: "Set time zone"
+  file:
+    src: "{{ arch_install_def_arch_chroot_dir }}/usr/share/zoneinfo/{{ arch_install_def_time_zone_file }}"
+    dest: "{{ arch_install_def_arch_chroot_dir }}/etc/localtime"
+    state: link
+    force: yes
+
+- name: "Set hardware clock and system clock"
+  command: hwclock --systohc
+                   --adjfile={{ arch_install_def_arch_chroot_dir }}/etc/adjtime
+
