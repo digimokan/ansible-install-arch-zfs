@@ -39,6 +39,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
     * `arch_install_def_keymap` (e.g. "us")
     * `arch_install_def_hostname` (e.g. "omegarig")
     * `user_var_zpool_name` (e.g. "zpool_alpha")
+    * `user_var_root_password` (ansible will prompt for this, if not defined)
 * Post-installation, The new machine is ready for configuration, at the
   [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
   step.

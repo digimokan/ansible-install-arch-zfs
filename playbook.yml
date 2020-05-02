@@ -41,7 +41,7 @@
         arch_install_def_root_password: "{{ user_var_root_password }}"
   vars_prompt:
     - name: user_var_root_password
-      prompt: "Enter the new system root password"
+      prompt: "Enter the new system root-user password"
       private: yes
       confirm: yes
       when: user_var_root_password is not defined
