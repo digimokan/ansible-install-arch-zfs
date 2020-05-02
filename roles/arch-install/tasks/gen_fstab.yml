@@ -1,18 +1,11 @@
 - name: "Create the /etc directory, if it does not exist"
   file:
-    path: "{{ chroot_etc_dir }}"
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc"
     state: directory
 
 - name: "Generate the /etc/fstab content"
   # -p: exclude pseudofs mounts (the default behavior)
   # -t LABEL: use filesystem-labels as the source IDs in fstab
-  command: genfstab -p
-                    -t LABEL
-                    {{ arch_install_def_arch_chroot_dir|quote }}
-  register: genfstab_out
-
-- name: "Put the /etc/fstab content into the new machine /etc/fstab"
-  copy:
-    content: "{{ genfstab_out.stdout }}\n\n"
-    dest: "{{ chroot_etc_dir }}/fstab"
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       genfstab -p -t LABEL
 
