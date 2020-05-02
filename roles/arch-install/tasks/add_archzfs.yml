@@ -34,26 +34,34 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK: archzfs"
     state: present
 
-- name: "Refresh pacman db, and install 'zfs-linux' and 'zfs-linux-lts' packages"
-  block:
-    - name: "Refresh the pacman database"
-      pacman:
-        update_cache: yes
-        update_cache_extra_args: "{{ pacman_args }}"
-        force: yes
-    - name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
-      pacman:
-        name:
-          - "archzfs-linux"
-          - "archzfs-linux-lts"
-        extra_args: "{{ pacman_args }}"
-  vars:
-    pacman_args: >-
-      --root "{{ arch_install_def_arch_chroot_dir }}"
-      --dbpath "{{ arch_install_def_arch_chroot_dir }}/var/lib/pacman"
-      --config "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-      --cachedir "{{ arch_install_def_arch_chroot_dir }}/var/cache/pacman/pkg"
-      --gpgdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
-      --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
-      --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
+# - name: "Refresh pacman db, and install 'zfs-linux' and 'zfs-linux-lts' packages"
+#   block:
+#     - name: "Refresh the pacman database"
+#       pacman:
+#         update_cache: yes
+#         update_cache_extra_args: "{{ pacman_args }}"
+#         force: yes
+#     - name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
+#       pacman:
+#         name:
+#           - "archzfs-linux"
+#           - "archzfs-linux-lts"
+#         extra_args: "{{ pacman_args }}"
+#   vars:
+#     pacman_args: >-
+#       --root "{{ arch_install_def_arch_chroot_dir }}"
+#       --dbpath "{{ arch_install_def_arch_chroot_dir }}/var/lib/pacman"
+#       --config "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
+#       --cachedir "{{ arch_install_def_arch_chroot_dir }}/var/cache/pacman/pkg"
+#       --gpgdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
+#       --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
+#       --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
+
+- name: "Refresh the pacman database"
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       pacman --noconfirm -Syy
+
+- name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       pacman --noconfirm -S archzfs-linux archzfs-linux-lts
 
