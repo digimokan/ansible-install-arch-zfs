@@ -26,7 +26,7 @@
 #   include_tasks: add_archzfs.yml
 
 - name: "Set the system root password, via user input"
-  shell: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+  raw: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                      passwd root
   # shell: passwd --root {{ arch_install_def_arch_chroot_dir|quote }} root
 
