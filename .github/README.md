@@ -29,11 +29,19 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 
 * Auto-detects and adjusts for BIOS-motherboard or UEFI-motherboard on new
   machine.
+* Installs _GRUB_ bootloader.
 * Installs Arch Linux to single hard drive, or two mirrored drives.
 * On Completion, the new machine will boot a minimal Arch Linux OS running the
-  stable zfs kernel (`archzfs-linux`). The new machine is ready for
-  configuration, at the [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
+  stable zfs kernel (`zfs-linux`). The new machine is ready for configuration,
+  at the [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
   step.
+* Customize the installation for your use case with these vars, using one of the
+  methods in [Full Usage / Options](#full-usage--options):
+      * `arch_install_def_time_zone_file` (e.g. "Canada/Central")
+      * `arch_install_def_locale` (e.g. "en_US.UTF-8")
+      * `arch_install_def_keymap` (e.g. "us")
+      * `arch_install_def_hostname` (e.g. "omegarig")
+      * `user_var_zpool_name` (e.g. "zpool_alpha")
 
 ## Requirements
 
@@ -145,6 +153,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 │ ├── group_vars/         # required user-vars, and constant playbook vars
 │ │
 │ ├─┬ roles/
+│ │ ├── arch-install/     # install Arch to disk(s), and configure
 │ │ ├── archiso-config/   # performs initial config of the live USB OS
 │ │ ├── dataset-creation/ # creates reasonable set of system/user datasets
 │ │ ├── disk-format/      # formats install disk(s) with boot/zfs partitions

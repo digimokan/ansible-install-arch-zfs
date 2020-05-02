@@ -6,7 +6,7 @@
 - name: "Generate /etc/fstab file, based on current archiso mounts"
   include_tasks: gen_fstab.yml
 
-- name: "Run 'pacstrap' cmd to install base system to installation disk(s)"
+- name: "Run 'pacstrap' cmd to install base system (without kernels or initramfs)"
   command: pacstrap {{ arch_install_def_arch_chroot_dir|quote }}
                     base base-devel
 
