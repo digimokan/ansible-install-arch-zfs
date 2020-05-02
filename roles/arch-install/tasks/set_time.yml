@@ -6,6 +6,6 @@
     force: yes
 
 - name: "Set hardware clock and system clock"
-  command: hwclock --systohc
-                   --adjfile={{ arch_install_def_arch_chroot_dir }}/etc/adjtime
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       hwclock --systohc
 
