@@ -34,34 +34,26 @@
     marker: "# {mark} ANSIBLE MANAGED BLOCK: archzfs"
     state: present
 
-- name: "Refresh chroot pacman database"
-  pacman:
-    update_cache: yes
-    update_cache_extra_args: >-
+- name: "Refresh pacman db, and install 'zfs-linux' and 'zfs-linux-lts' packages"
+  block:
+    - name: "Refresh the pacman database"
+      pacman:
+        update_cache: yes
+        update_cache_extra_args: "{{ pacman_args }}"
+        force: yes
+    - name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
+      pacman:
+        name:
+          - "archzfs-linux"
+          - "archzfs-linux-lts"
+        extra_args: "{{ pacman_args }}"
+  vars:
+    pacman_args: >-
       --root "{{ arch_install_def_arch_chroot_dir }}"
+      --dbpath "{{ arch_install_def_arch_chroot_dir }}/var/lib/pacman"
       --config "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
       --cachedir "{{ arch_install_def_arch_chroot_dir }}/var/cache/pacman/pkg"
       --gpgdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
       --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
       --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
-
-# - name: "Add 'archzfs-kernels' repo to chroot pacman.conf AGAIN....."
-#   lineinfile:
-#     path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-#     line: "[archzfs-kernels]\nServer = http://end.re/$repo\n"
-#     insertbefore: "^\[core\]$"
-#     state: present
-
-# - name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
-#   pacman:
-#     name:
-#       - "archzfs-linux"
-#       - "archzfs-linux-lts"
-#     extra_args: >-
-#       --root "{{ arch_install_def_arch_chroot_dir }}"
-#       --config "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-#       --cachedir "{{ arch_install_def_arch_chroot_dir }}/var/cache/pacman/pkg"
-#       --gpgdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
-#       --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
-#       --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
 
