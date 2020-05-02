@@ -30,7 +30,7 @@
     - name: "Add 'archzfs-kernels' repo to chroot pacman.conf"
       lineinfile:
         path: "{{ pacman_conf_file }}"
-        line: "[archzfs-kernels]\nServer = http://end.re/$repo\n\n"
+        line: "[archzfs-kernels]\nServer = http://end.re/$repo\n"
         insertbefore: '^\[core\]$'
         state: present
     # - name: "Add 'archzfs-kernels' repo to chroot pacman.conf"
