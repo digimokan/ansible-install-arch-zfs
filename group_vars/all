@@ -9,9 +9,12 @@
 # list of devices to install Arch Linux to on new machine
 # devices should be "sda", "sdb", etc
 # (specify two list items for two-disk, mirrored installation)
-
 # user_var_install_devices:
 #   - "sda"
+
+# root-user password of the new machine
+# note: if not defined via one of the methods above, ansible will prompt for this
+# user_var_root_passwd: "mypassword123"
 
 # zpool name
 user_var_zpool_name: "zroot"

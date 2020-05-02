@@ -25,19 +25,19 @@
 # - name: "Add archzfs repo keys, configure 'pacman.conf', install archzfs kernels"
 #   include_tasks: add_archzfs.yml
 
-- name: "Set the system root password, via user input"
-  block:
+# - name: "Set the system root password, via user input"
+#   block:
     # - name: "Get the new root password from user input"
     #   pause:
     #     prompt: "Enter the root password for the new machine:"
     #     echo: no
     #   register: password_input
-    - name: "Change the root password"
-      command:
-        cmd: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-                        chpasswd
-        # stdin: "root:{{ password_input.user_input }}"
-        stdin: "root:{{ input_root_passwd }}"
+- name: "Change the root password"
+  command:
+    cmd: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                    chpasswd
+    # stdin: "root:{{ password_input.user_input }}"
+    stdin: "root:{{ arch_install_def_root_password }}"
   # vars_prompt:
   #   - name: input_root_passwd
   #     prompt: "Enter the new system root password"

@@ -34,6 +34,9 @@ arch_install_def_keymap: "us"
 # Hostname of the new machine
 arch_install_def_hostname: "omegarig"
 
+# Root-user password of the new machine
+arch_install_def_root_password: "mypassword123"
+
 # Pacman key for archzfs repo (listed on https://wiki.archlinux.org/index.php/Unofficial_user_repositories#archzfs)
 arch_install_def_archzfs_repo_key: "F75D9D76"
 

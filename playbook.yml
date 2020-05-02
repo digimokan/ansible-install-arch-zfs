@@ -38,10 +38,11 @@
         arch_install_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
         arch_install_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
         arch_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
+        arch_install_def_root_password: "{{ user_var_root_passwd }}"
   vars_prompt:
-    - name: input_root_passwd
+    - name: user_var_passwd
       prompt: "Enter the new system root password"
       private: yes
       confirm: yes
-      when: input_root_passwd is not defined
+      when: user_var_root_passwd is not defined
 
