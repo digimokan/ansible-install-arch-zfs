@@ -1,6 +1,5 @@
 - name: "Create EFI ESP (extended sys partition) filesystem(s), and mount"
   include_tasks: mount_esp.yml
-  # when: arch_install_def_motherboard_type == "uefi"
   when: arch_install_def_motherboard_type == "bios"
 
 - name: "Generate /etc/fstab file, based on current archiso mounts"
