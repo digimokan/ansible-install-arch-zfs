@@ -25,15 +25,6 @@
       --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
       --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
 
-- name: "Add 'archzfs' repo as last-priority repo in pacman.conf"
-  blockinfile:
-    path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-    insertafter: EOF
-    block: |
-      [archzfs]
-      Server = http://archzfs.com/$repo/x86_64
-    state: present
-
 - name: "Add 'archzfs-kernels' repo as first-priority repo in pacman.conf"
   blockinfile:
     path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
@@ -41,6 +32,17 @@
     block: |
       [archzfs-kernels]
       Server = http://end.re/$repo
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: archzfs-kernels"
+    state: present
+
+- name: "Add 'archzfs' repo as last-priority repo in pacman.conf"
+  blockinfile:
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
+    insertafter: EOF
+    block: |
+      [archzfs]
+      Server = http://archzfs.com/$repo/x86_64
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: archzfs"
     state: present
 
 # - name: "Add 'archzfs-kernels' repo to chroot pacman.conf AGAIN....."
