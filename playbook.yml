@@ -43,4 +43,5 @@
       prompt: "Enter the new system root password"
       private: yes
       confirm: yes
+      when: input_root_passwd is not defined
 
