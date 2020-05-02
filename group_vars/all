@@ -14,7 +14,7 @@
 
 # root-user password of the new machine
 # note: if not defined via one of the methods above, ansible will prompt for this
-# user_var_root_passwd: "mypassword123"
+# user_var_root_password: "mypassword123"
 
 # zpool name
 user_var_zpool_name: "zroot"
