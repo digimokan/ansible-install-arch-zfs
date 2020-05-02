@@ -31,7 +31,7 @@
       pause:
         prompt: "Enter the root password for the new machine:"
         echo: no
-        register: password_input
+      register: password_input
     - name: "Change the root password"
       command:
         cmd: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
