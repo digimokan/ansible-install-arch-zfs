@@ -6,6 +6,13 @@
 - name: "Generate the /etc/fstab content"
   # -p: exclude pseudofs mounts (the default behavior)
   # -t LABEL: use filesystem-labels as the source IDs in fstab
-  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-                       genfstab -p -t LABEL
+  command: genfstab -p
+                    -t LABEL
+                    {{ arch_install_def_arch_chroot_dir|quote }}
+  register: genfstab_out
+
+- name: "Put the /etc/fstab content into the new machine /etc/fstab"
+  copy:
+    content: "{{ genfstab_out.stdout }}\n\n"
+    dest: "{{ arch_install_def_arch_chroot_dir }}/etc/fstab"
 
