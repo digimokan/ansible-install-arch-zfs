@@ -25,14 +25,14 @@
       --hookdir "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/hooks"
       --logfile "{{ arch_install_def_arch_chroot_dir }}/var/log/pacman.log"
 
-- name: "Add 'archzfs-kernels' repo as first-priority repo in pacman.conf"
-  blockinfile:
-    path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-    insertbefore: '^\[core\]$'
-    block: |+
-      [archzfs-kernels]
-      Server = http://end.re/$repo
-    state: present
+# - name: "Add 'archzfs-kernels' repo as first-priority repo in pacman.conf"
+#   blockinfile:
+#     path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
+#     insertbefore: '^\[core\]$'
+#     block: |+
+#       [archzfs-kernels]
+#       Server = http://end.re/$repo
+#     state: present
 
 - name: "Add 'archzfs' repo as last-priority repo in pacman.conf"
   blockinfile:
