@@ -30,15 +30,16 @@
   command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                        pacman --noconfirm -Syy
 
+- name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
+  # note: installing kernels will trigger initramfs generation via pacman hook
+  # note: initramfs will be rebuilt below, but this cmd creates mkinitcpio.conf
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       pacman --noconfirm -S archzfs-linux archzfs-linux-lts
+
 - name: "Configure 'mkinitcpio.conf', for correct zfs initramfs generation"
   lineinfile:
     path: "{{ arch_install_def_arch_chroot_dir }}/etc/mkinitcpio.conf"
     regexp: '^HOOKS='
     line: "HOOKS=(base udev autodetect modconf block keyboard zfs usr filesystems shutdown)"
     state: present
-
-# - name: "Install 'zfs-linux' and 'zfs-linux-lts' packages to chroot"
-#   # note: installing kernels will trigger initramfs generation via pacman hook
-#   command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-#                        pacman --noconfirm -S archzfs-linux archzfs-linux-lts
 
