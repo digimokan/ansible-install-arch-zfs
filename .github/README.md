@@ -37,11 +37,11 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
   step.
 * Customize the installation for your use case with these vars, using one of the
   methods in [Full Usage / Options](#full-usage--options):
-      * `arch_install_def_time_zone_file` (e.g. "Canada/Central")
-      * `arch_install_def_locale` (e.g. "en_US.UTF-8")
-      * `arch_install_def_keymap` (e.g. "us")
-      * `arch_install_def_hostname` (e.g. "omegarig")
-      * `user_var_zpool_name` (e.g. "zpool_alpha")
+    * `arch_install_def_time_zone_file` (e.g. "Canada/Central")
+    * `arch_install_def_locale` (e.g. "en_US.UTF-8")
+    * `arch_install_def_keymap` (e.g. "us")
+    * `arch_install_def_hostname` (e.g. "omegarig")
+    * `user_var_zpool_name` (e.g. "zpool_alpha")
 
 ## Requirements
 
