@@ -25,12 +25,7 @@
 # - name: "Add archzfs repo keys, configure 'pacman.conf', install archzfs kernels"
 #   include_tasks: add_archzfs.yml
 
-- name: "Print msg for user, then set the root password via user query"
-  block:
-    - name: "Print msg to prompt user to enter root password"
-      debug:
-        msg: "Setting the root-user password on new machine...."
-    - name: "Set the root password"
-      command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-                           passwd root
+- name: "Set the system root password, via user input"
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       passwd root
 
