@@ -1,24 +1,9 @@
-# - name: "Add archzfs repo key and sign it"
-#   block:
 - name: "Import the archzfs-repo-key to the new machine pacman keyring"
   command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                        pacman-key --recv-keys {{ arch_install_def_archzfs_repo_key|quote }}
-    # - name: "Import the archzfs-repo-key to the new machine pacman keyring"
-    #   command: pacman-key --recv-keys
-    #                       --config {{ pacman_conf_file|quote }}
-    #                       --gpgdir {{ pacman_keyring_dir|quote }}
-    #                       {{ arch_install_def_archzfs_repo_key|quote }}
-    # - name: "Sign the imported archzfs-repo-key"
-    #   command: pacman-key --lsign-key
-    #                       --config {{ pacman_conf_file|quote }}
-    #                       --gpgdir {{ pacman_keyring_dir|quote }}
-    #                       {{ arch_install_def_archzfs_repo_key|quote }}
 - name: "Sign the imported archzfs-repo-key"
   command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                        pacman-key --lsign-key {{ arch_install_def_archzfs_repo_key|quote }}
-  # vars:
-    # pacman_conf_file: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
-    # pacman_keyring_dir: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.d/gnupg"
 
 - name: "Add 'archzfs-kernels' repo as first-priority repo in pacman.conf"
   blockinfile:
