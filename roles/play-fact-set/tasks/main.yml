@@ -19,6 +19,5 @@
       register: efivars
     - name: "Set the motherboard-type play fact"
       set_fact:
-        # play_fact_motherboard_type: "{{ 'uefi' if efivars.stat.exists else 'bios' }}"
-        play_fact_motherboard_type: "uefi"
+        play_fact_motherboard_type: "{{ 'uefi' if efivars.stat.exists else 'bios' }}"
 
