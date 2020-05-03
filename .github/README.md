@@ -161,6 +161,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 │ │ ├── disk-format/      # formats install disk(s) with boot/zfs partitions
 │ │ ├── play-fact-set/    # initial calc/set of play-wide vars
 │ │ ├── pool-creation/    # creates zpool on the install disk(s)
+│ │ ├── post-install/     # clean up and finalize the installation
 │ │ ├── user-vars-chk/    # checks that required user_var_* vars are defined
 │ │ └── zroot-config/     # configures zpool for use after adding datasets
 │ │
