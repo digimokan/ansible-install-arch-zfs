@@ -1,12 +1,3 @@
-- name: "Check if the zpool exists"
-  command: zpool status {{ pool_creation_def_zpool_name|quote }}
-  register: status_result
-  failed_when: status_result.rc >= 2
-
-- name: "Delete the existing zpool if it exists"
-  command: zpool destroy -f {{ pool_creation_def_zpool_name|quote }}
-  when: "'no such pool' not in status_result.stderr"
-
 - name: "Create the new zpool on the installation disk(s)"
   # -f: force creation, clobbering vdev metadata if it exists
   # -d: do not enable any features - specify features individually with -o
