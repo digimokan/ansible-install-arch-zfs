@@ -28,11 +28,12 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 ## Features
 
 * Installs to single hard drive, or two mirrored drives.
-* Auto-detects motherboard type (BIOS or UEFI), and installs _GRUB_ bootloader.
-* On Completion of installation, the new machine will boot a minimal Arch Linux
-  OS running the stable zfs kernel (`zfs-linux`). The LTS kernel
-  (`zfs-linux-lts`) is available, and may be selected in the _GRUB_ boot menu.
-* Customize the installation for your use case with these vars, using one of the
+* Auto-detects motherboard type (BIOS or UEFI).
+* Sets up _GRUB_ bootloader.
+* Uses the following zfs kernels:
+    * The `zfs-linux` stable kernel (default).
+    * The `zfs-linux-lts` LTS kernel (selectable in _GRUB_ boot menu).
+* Customize the installation with these vars, using one of the
   methods in [Full Usage / Options](#full-usage--options):
     * `arch_install_def_time_zone_file` (e.g. "Canada/Central")
     * `arch_install_def_locale` (e.g. "en_US.UTF-8")
@@ -40,8 +41,8 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
     * `arch_install_def_hostname` (e.g. "omegarig")
     * `user_var_zpool_name` (e.g. "zpool_alpha")
     * `user_var_root_password` (ansible will prompt for this, if not defined)
-* Post-installation, The new machine is ready for configuration, at the
-  [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
+* Post-installation, the machine is bootable and ready for configuration, at the
+  [Arch Linux Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
   step.
 
 ## Requirements
