@@ -1,9 +1,6 @@
 - name: "Write new GPT partition table to disk"
   command: sgdisk --mbrtogpt /dev/{{ disk_device|quote }}
 
-- name: "Check that kernel recognizes the written partition table"
-  command: partprobe
-
 - name: "Add BIOS/UEFI GRUB bootloader partition to disk"
   command: sgdisk --new 1:0:{{ boot_partition_size|quote }}
                   --typecode 1:{{ boot_partition_code|quote }}
