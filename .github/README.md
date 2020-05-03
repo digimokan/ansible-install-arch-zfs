@@ -64,26 +64,26 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 3. As required: use `pacman` to install `git` and `ansible` packages:
 
    ```shell
-   # pacman -Sy
-   # pacman -S git ansible
+   $ pacman -Sy
+   $ pacman -S git ansible
    ```
 
 4. Clone project into a local directory:
 
    ```shell
-   # git clone https://github.com/digimokan/ansible-install-arch-zfs.git
+   $ git clone https://github.com/digimokan/ansible-install-arch-zfs.git
    ```
 
 5. Change to the local directory:
 
    ```shell
-   # cd ansible-install-arch-zfs
+   $ cd ansible-install-arch-zfs
    ```
 
 6. Run the ansible script for a single-disk install:
 
    ```shell
-   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
+   $ ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
    ```
 
 7. Configure the new machine, per the [Arch Linux Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
@@ -96,19 +96,19 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 * For single-disk install option:
 
    ```shell
-   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
+   $ ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
    ```
 
 * For two-disk mirrored install option:
 
    ```shell
-   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda","sdb"]}' playbook.yml
+   $ ansible-playbook -i hosts -e '{"user_var_install_devices":["sda","sdb"]}' playbook.yml
    ```
 
 * For single-disk install option, customizing a var (e.g. `zpool` name):
 
    ```shell
-   # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"],"user_var_zpool_name":"zpool_alpha"}' playbook.yml
+   $ ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"],"user_var_zpool_name":"zpool_alpha"}' playbook.yml
    ```
 
 ### Method 2: Set Required User Vars In External Vars File
@@ -126,7 +126,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 2. Run the playbook, passing the external vars file:
 
    ```shell
-   # ansible-playbook -i hosts -e '@/some/file/path/my_user_vars.yml' playbook.yml
+   $ ansible-playbook -i hosts -e '@/some/file/path/my_user_vars.yml' playbook.yml
    ```
 
 ### Method 3: Set Required User Vars Internally, Within Source Tree
@@ -144,7 +144,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 2. Run the playbook:
 
    ```shell
-   # ansible-playbook -i hosts playbook.yml
+   $ ansible-playbook -i hosts playbook.yml
    ```
 
 ## Source Code Layout
