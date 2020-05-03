@@ -41,7 +41,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
     * `arch_install_def_hostname` (e.g. "omegarig")
     * `user_var_zpool_name` (e.g. "zpool_alpha")
     * `user_var_root_password` (ansible will prompt for this, if not defined)
-* Post-installation, the machine is bootable and ready for configuration, at the
+* Post-installation, the machine is bootable and ready for configuration at the
   [Arch Linux Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
   step.
 
@@ -86,26 +86,26 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
    # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
    ```
 
-7. Configure the new machine, per the [Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
+7. Configure the new machine, per the [Arch Linux Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
    instructions in the _Arch Linux Installation Guide_.
 
 ## Full Usage / Options
 
 ### Method 1: Set Required User Vars From Command Line
 
-* For Single-Disk Install Option:
+* For single-disk install option:
 
    ```shell
    # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"]}' playbook.yml
    ```
 
-* For Two-Disk Mirrored Install Option:
+* For two-disk mirrored install option:
 
    ```shell
    # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda","sdb"]}' playbook.yml
    ```
 
-* For Single-Disk Install Option, Specifying The New `zpool` Name:
+* For single-disk install option, customizing a var (e.g. `zpool` name):
 
    ```shell
    # ansible-playbook -i hosts -e '{"user_var_install_devices":["sda"],"user_var_zpool_name":"zpool_alpha"}' playbook.yml
@@ -131,7 +131,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 
 ### Method 3: Set Required User Vars Internally, Within Source Tree
 
-1. Define the required user vars in project `group_vars/all` file:
+1. Edit the required user vars in project `group_vars/all` file:
 
    ```
    # group_vars/all
