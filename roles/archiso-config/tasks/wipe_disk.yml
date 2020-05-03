@@ -1,10 +1,8 @@
-- name: "Wipe disk partition table, partitions, and filesystem metadata"
-  block:
-    - name: "Use wipefs to wipe partition table, partitions, fs metadata"
-      command: wipefs --all --force /dev/{{ device }}
-    - name: "In case wipefs not totally effective, overwrite partition table"
-      command: dd if=/dev/zero of=/dev/{{ device }} bs=1M count=4
-  loop: "{{ archiso_config_def_install_devices }}"
-  loop_control:
-    loop_var: device
+- name: "Use wipefs to wipe partition table, partitions, filesystem metadata"
+  command: wipefs --all --force /dev/{{ device }}
+  # note: for some reason, wipefs needs two passes to wipe zfs partitions
+  with_sequence: count=2
+
+- name: "In case wipefs not totally effective, overwrite partition table"
+  command: dd if=/dev/zero of=/dev/{{ device }} bs=1M count=4
 

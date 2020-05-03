@@ -56,6 +56,7 @@
 
 - name: "Wipe installation disks"
   include_tasks: wipe_disk.yml
-  # note: for some reason, wipefs needs two passes to wipe zfs partitions
-  with_sequence: count=2
+  loop: "{{ archiso_config_def_install_devices }}"
+  loop_control:
+    loop_var: device
 
