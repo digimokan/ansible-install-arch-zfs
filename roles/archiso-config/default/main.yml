@@ -2,6 +2,10 @@
 # default variables: placeholders - should mostly override when using the role
 ################################################################################
 
+# list of devices to install Arch Linux to
+archiso_config_def_install_devices:
+  - "sda"
+
 # zpool name
 archiso_config_def_zpool_name: "zroot"
 

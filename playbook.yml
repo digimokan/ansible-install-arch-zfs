@@ -17,6 +17,7 @@
       loop_control:
         loop_var: item_playbook
       vars:
+        archiso_config_def_install_devices: "{{ user_var_install_devices }}"
         archiso_config_def_zpool_name: "{{ user_var_zpool_name }}"
         archiso_config_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
         disk_format_def_motherboard_type: "{{ play_fact_motherboard_type }}"

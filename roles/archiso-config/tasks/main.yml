@@ -35,13 +35,32 @@
     mirror_list: "/etc/pacman.d/mirrorlist"
     mirror_list_bkup: "{{ mirror_list }}_bkup"
 
+- name: "Unmount EFI boot partition from '[chroot]/efi', if it is mounted"
+  # note: this task allows playbook to be run multiple times, with idempotence
+  mount:
+    path: "{{ archiso_config_def_efi_chroot_dir }}"
+    state: unmounted
+
 - name: "Load the zfs kernel module"
   modprobe:
     name: zfs
     state: present
 
-- name: "Unmount EFI boot partition from '[chroot]/efi', if it is mounted"
-  mount:
-    path: "{{ archiso_config_def_efi_chroot_dir }}"
-    state: unmounted
+- name: "Check whether zpool exists on installation disk(s), and get pool name"
+  command: zpool list -H -o name
+  register: existing_zpool
+
+- name: "Delete the existing zpool"
+  command: zpool destroy -f {{ existing_zpool.stdout|quote }}
+  when: existing_zpool.stdout != ""
+
+- name: "Wipe installation disks"
+  block:
+  # note: for some reason, wipefs needs two passes to wipe zfs partitions
+    - name: "Wipe disk partition table, partitions, and filesystem metadata"
+      command: wipefs --all --force /dev/{{ device }}
+      loop: "{{ archiso_config_def_install_devices }}"
+      loop_control:
+        loop_var: device
+  with_sequence: count=2
 

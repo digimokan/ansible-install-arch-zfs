@@ -1,10 +1,10 @@
-- name: "Erase disk, including part-table and partitions"
-  command: sgdisk --zap-all /dev/{{ disk_device|quote }}
-
 - name: "Write new GPT partition table to disk"
   command: sgdisk --mbrtogpt /dev/{{ disk_device|quote }}
 
-- name: "Add BIOS-motherboard GRUB bootloader partition to disk"
+- name: "Check that kernel recognizes the written partition table"
+  command: partprobe
+
+- name: "Add BIOS/UEFI GRUB bootloader partition to disk"
   command: sgdisk --new 1:0:{{ boot_partition_size|quote }}
                   --typecode 1:{{ boot_partition_code|quote }}
                   --change-name 1:{{ boot_partition_label|quote }}
