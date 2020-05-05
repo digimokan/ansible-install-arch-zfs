@@ -1,0 +1,12 @@
+- name: "Install 'grub' package to chroot"
+  command: arch-chroot {{ grub_install_def_arch_chroot_dir|quote }}
+                       pacman --noconfirm -S grub
+
+- name: "For BIOS motherboard: install and configure GRUB for BIOS partition(s)"
+  include_tasks: bios_install.yml
+  when: grub_install_def_motherboard_type == "bios"
+
+- name: "For UEFI motherboard: install and configure GRUB for EFI partition(s)"
+  include_tasks: uefi_install.yml
+  when: grub_install_def_motherboard_type == "uefi"
+

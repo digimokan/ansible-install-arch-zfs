@@ -1,0 +1,10 @@
+# motherboard type: specify "bios" or "uefi"
+grub_install_def_motherboard_type: "bios"
+
+# list of devices to install Arch Linux to
+grub_install_def_install_devices:
+  - "sda"
+
+# chroot dir: new-machine filesystem root will be placed here temporarily
+grub_install_def_arch_chroot_dir: "/mnt/archroot"
+
