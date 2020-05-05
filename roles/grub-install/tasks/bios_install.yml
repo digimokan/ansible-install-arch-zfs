@@ -4,4 +4,6 @@
   loop: "{{ grub_install_def_install_devices }}"
   loop_control:
     loop_var: device
+  environment:
+    ZPOOL_VDEV_NAME_PATH: 1
 
