@@ -1,5 +1,5 @@
 - name: "Write GRUB bootloader code to BIOS partition"
-  command: grub-install --boot-directory={{ grub_install_def_arch_chroot_dir|quote }}
+  command: grub-install --boot-directory="{{ grub_install_def_arch_chroot_dir }}/boot"
                         /dev/{{ device }}
   loop: "{{ grub_install_def_install_devices }}"
   loop_control:
