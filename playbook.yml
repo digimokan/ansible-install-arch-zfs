@@ -2,26 +2,19 @@
   become: true
   connection: local
   tasks:
-    - name: "Install the basic, minimal, zfs-based Arch Linux to the drive(s)"
-      include_role:
-        name: "{{ role_directory }}"
-      loop:
-        - archiso-config
-        - user-vars-chk
-        - play-fact-set
-        - disk-format
-        - pool-creation
-        - dataset-creation
-        - zroot-config
-        - arch-install
-        - grub-install
-        - post-install
-      loop_control:
-        loop_var: role_directory
+    - name: "Configure archiso as required, and wipe disk(s) for clean install"
+      include_role: archiso-config
       vars:
         archiso_config_def_install_devices: "{{ user_var_install_devices }}"
         archiso_config_def_zpool_name: "{{ user_var_zpool_name }}"
         archiso_config_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
+    - name: "Check that user has defined required 'user_var_*' variables"
+      include_role: archiso-config
+    - name: "Determine hardware characteristics, and construct related vars"
+      include_role: play-fact-set
+    - name: "Format disks with required partitions"
+      include_role: disk-format
+      vars:
         disk_format_def_motherboard_type: "{{ play_fact_motherboard_type }}"
         disk_format_def_device_1: "{{ user_var_install_devices[0] }}"
         disk_format_def_device_2: "{{ 'none' if user_var_install_devices|length == 1 else user_var_install_devices[1] }}"
@@ -29,13 +22,25 @@
         disk_format_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
         disk_format_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
         disk_format_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
+    - name: "Create and configure the zpool"
+      include_role: pool-creation
+      vars:
         pool_creation_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
         pool_creation_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
         pool_creation_def_zpool_name: "{{ user_var_zpool_name }}"
         pool_creation_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
+    - name: "Create all zfs datasets on the new pool"
+      include_role: dataset-creation
+      vars:
         dataset_creation_def_zpool_name: "{{ user_var_zpool_name }}"
+    - name: "Configure final settings on the new pool"
+      include_role: zroot-config
+      vars:
         zroot_config_def_zpool_name: "{{ user_var_zpool_name }}"
         zroot_config_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
+    - name: "Install Arch Linux to new pool, and do related Arch install tasks"
+      include_role: arch-install
+      vars:
         arch_install_def_motherboard_type: "{{ play_fact_motherboard_type }}"
         arch_install_def_install_devices: "{{ user_var_install_devices }}"
         arch_install_def_device_1_boot_partlabel: "{{ play_fact_device_1_boot_partlabel }}"
@@ -43,10 +48,16 @@
         arch_install_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
         arch_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
         arch_install_def_root_password: "{{ user_var_root_password }}"
+    - name: "Install GRUB bootloader to boot partition(s), create 'grub.cfg'"
+      include_role: grub-install
+      vars:
         grub_install_def_motherboard_type: "{{ play_fact_motherboard_type }}"
         grub_install_def_install_devices: "{{ user_var_install_devices }}"
         grub_install_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
         grub_install_def_zpool_name: "{{ user_var_zpool_name }}"
+    - name: "Perform post-installation unmounting and cleanup"
+      include_role: post-install
+      vars:
         post_install_def_zpool_name: "{{ user_var_zpool_name }}"
         post_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
   vars_prompt:
