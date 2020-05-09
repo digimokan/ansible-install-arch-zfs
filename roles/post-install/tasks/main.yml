@@ -1,3 +1,14 @@
 - name: "Re-sync kernel-recognized disk partition(s)"
   command: partprobe
 
+- name: "Unmount EFI boot partition from '[chroot]/efi', if it is mounted"
+  mount:
+    path: "{{ post_install_def_efi_chroot_dir }}"
+    state: unmounted
+
+- name: "Unmount all zfs filesystems"
+  command: zfs unmount -a
+
+- name: "Export the zpool"
+  command: zpool export {{ post_install_def_zpool_name|quote }}
+

@@ -1,0 +1,10 @@
+################################################################################
+# default variables: placeholders - should mostly override when using the role
+################################################################################
+
+# zpool name
+post_install_def_zpool_name: "zroot"
+
+# EFI dir: if UEFI motherboard, new machine must mount EFI ESP partition
+post_install_def_efi_chroot_dir: "/mnt/archroot/efi"
+
