@@ -1,0 +1,9 @@
+set timeout=5
+set default=0
+
+menuentry "Arch Linux Stable ZFS Kernel, Norm Initramfs" {
+  search -u UUID
+  linux /ROOT/default/@/boot/vmlinuz-linux zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
+  initrd /ROOT/default/@/boot/initramfs-linux.img
+}
+

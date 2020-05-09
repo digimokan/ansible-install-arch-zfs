@@ -10,3 +10,11 @@
   include_tasks: uefi_install.yml
   when: grub_install_def_motherboard_type == "uefi"
 
+- name: "Create custom 'grub.cfg' in '/boot/grub' directory"
+  template:
+    src: grub.cfg.j2
+    dest: "{{ grub_install_def_arch_chroot_dir }}/boot/grub.cfg"
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+

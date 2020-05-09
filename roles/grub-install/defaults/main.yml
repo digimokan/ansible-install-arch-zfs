@@ -8,3 +8,6 @@ grub_install_def_install_devices:
 # chroot dir: new-machine filesystem root will be placed here temporarily
 grub_install_def_arch_chroot_dir: "/mnt/archroot"
 
+# zpool name
+grub_install_def_zpool_name: "zroot"
+
