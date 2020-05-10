@@ -9,6 +9,8 @@
         archiso_config_def_install_devices: "{{ user_var_install_devices }}"
         archiso_config_def_zpool_name: "{{ user_var_zpool_name }}"
         archiso_config_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
+      tags:
+        - main_install
     - name: "Check that user has defined required 'user_var_*' variables"
       include_role:
         name: user-vars-chk
@@ -30,6 +32,8 @@
         disk_format_def_device_1_zfs_partlabel: "{{ play_fact_device_1_zfs_partlabel }}"
         disk_format_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
         disk_format_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
+      tags:
+        - main_install
     - name: "Create and configure the zpool"
       include_role:
         name: pool-creation
@@ -38,17 +42,23 @@
         pool_creation_def_device_2_zfs_partlabel: "{{ play_fact_device_2_zfs_partlabel }}"
         pool_creation_def_zpool_name: "{{ user_var_zpool_name }}"
         pool_creation_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
+      tags:
+        - main_install
     - name: "Create all zfs datasets on the new pool"
       include_role:
         name: dataset-creation
       vars:
         dataset_creation_def_zpool_name: "{{ user_var_zpool_name }}"
+      tags:
+        - main_install
     - name: "Configure final settings on the new pool"
       include_role:
         name: zroot-config
       vars:
         zroot_config_def_zpool_name: "{{ user_var_zpool_name }}"
         zroot_config_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
+      tags:
+        - main_install
     - name: "Install Arch Linux to new pool, and do related Arch install tasks"
       include_role:
         name: arch-install
@@ -60,6 +70,8 @@
         arch_install_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
         arch_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
         arch_install_def_root_password: "{{ user_var_root_password }}"
+      tags:
+        - main_install
     - name: "Install GRUB bootloader to boot partition(s), and create grub.cfg"
       include_role:
         name: grub-install
