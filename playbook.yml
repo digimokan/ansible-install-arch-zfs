@@ -70,6 +70,8 @@
       vars:
         post_install_def_zpool_name: "{{ user_var_zpool_name }}"
         post_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
+      tags:
+        - post_install
   vars_prompt:
     - name: user_var_root_password
       prompt: "Enter the new system root-user password"
