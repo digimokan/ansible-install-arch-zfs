@@ -13,7 +13,7 @@
 - name: "Create custom 'grub.cfg' in '/boot/grub' directory"
   template:
     src: grub.cfg.j2
-    dest: "{{ grub_install_def_arch_chroot_dir }}/boot/grub.cfg"
+    dest: "{{ grub_install_def_arch_chroot_dir }}/boot/grub/grub.cfg"
     owner: root
     group: root
     mode: u=rw,g=r,o=r
