@@ -1,0 +1,15 @@
+- name: "Install 'efibootmgr' package to chroot"
+  command: arch-chroot {{ grub_install_def_arch_chroot_dir|quote }}
+                       pacman --noconfirm -S efibootmgr
+
+- name: "Write GRUB bootloader code to first disk EFI partition"
+  include_tasks: uefi_part.yml
+  vars:
+    boot_partlabel: "{{ grub_install_def_device_1_boot_partlabel }}"
+
+- name: "Write GRUB bootloader code to second disk EFI partition, if exists"
+  include_tasks: uefi_part.yml
+  vars:
+    boot_partlabel: "{{ grub_install_def_device_2_boot_partlabel }}"
+  when: grub_install_def_device_2_boot_partlabel != ""
+

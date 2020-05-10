@@ -5,8 +5,15 @@ grub_install_def_motherboard_type: "bios"
 grub_install_def_install_devices:
   - "sda"
 
+# boot partition label(s)
+grub_install_def_device_1_boot_partlabel: "boot_partition"
+grub_install_def_device_2_boot_partlabel: "boot_partition_mirror1"
+
 # chroot dir: new-machine filesystem root will be placed here temporarily
 grub_install_def_arch_chroot_dir: "/mnt/archroot"
+
+# EFI dir: if UEFI motherboard, new machine must mount EFI ESP partition
+grub_install_def_efi_chroot_dir: "/mnt/archroot/efi"
 
 # zpool name
 grub_install_def_zpool_name: "zroot"

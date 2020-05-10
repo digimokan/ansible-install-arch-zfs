@@ -1,0 +1,20 @@
+- name: "Unmount any boot partition mounted to /efi directory"
+  mount:
+    path: "{{ grub_install_def_efi_chroot_dir }}"
+    state: unmounted
+
+- name: "Mount first disk boot partition to '/efi'"
+  command:
+    cmd: mount --source /dev/disk/by-partlabel/{{ boot_partlabel }}
+               --target {{ arch_install_def_efi_chroot_dir|quote }}
+    # warn: false
+
+- name: "Write GRUB bootloader code to EFI partition"
+  command: grub-install --boot-directory="{{ grub_install_def_arch_chroot_dir }}/boot"
+                        --efi-directory={{ grub_install_def_efi_chroot_dir|quote }}
+                        --target=x86_64-efi
+                        --bootloader-id=GRUB
+                        --removable
+  environment:
+    ZPOOL_VDEV_NAME_PATH: 1
+

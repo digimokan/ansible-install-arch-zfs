@@ -78,7 +78,10 @@
       vars:
         grub_install_def_motherboard_type: "{{ play_fact_motherboard_type }}"
         grub_install_def_install_devices: "{{ user_var_install_devices }}"
+        grub_install_def_device_1_boot_partlabel: "{{ play_fact_device_1_boot_partlabel }}"
+        grub_install_def_device_2_boot_partlabel: "{{ play_fact_device_2_boot_partlabel }}"
         grub_install_def_arch_chroot_dir: "{{ const_var_arch_chroot_dir }}"
+        grub_install_def_efi_chroot_dir: "{{ const_var_efi_chroot_dir }}"
         grub_install_def_zpool_name: "{{ user_var_zpool_name }}"
       tags:
         - grub_install
