@@ -12,9 +12,13 @@
     - name: "Check that user has defined required 'user_var_*' variables"
       include_role:
         name: user-vars-chk
+      tags:
+        - always
     - name: "Determine hardware characteristics, and construct related vars"
       include_role:
         name: play-fact-set
+      tags:
+        - always
     - name: "Format disks with required partitions"
       include_role:
         name: disk-format
