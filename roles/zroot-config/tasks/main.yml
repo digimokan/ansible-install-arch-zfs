@@ -23,10 +23,12 @@
         - "{{ dest_dir }}"
       loop_control:
         loop_var: item_main
-    - name: "Create 'zpool.cache' file if it does not exist"
-      command:
-        cmd: zpool set cachefile={{ src_file|quote }} {{ zroot_config_def_zpool_name|quote }}
-        creates: "{{ src_file }}"
+    - name: "Delete any 'zpool.cache' file"
+      file:
+        path: "{{ src_file }}"
+        state: absent
+    - name: "Create 'zpool.cache' file"
+      command: zpool set cachefile={{ src_file|quote }} {{ zroot_config_def_zpool_name|quote }}
     - name: "Copy 'zpool.cache' file into the zpool filesystem"
       copy:
         src: "{{ src_file }}"
