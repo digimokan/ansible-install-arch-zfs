@@ -1,6 +1,13 @@
 - name: "Import the archzfs-repo-key to the new machine pacman keyring"
-  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-                       pacman-key --recv-keys {{ arch_install_def_archzfs_repo_key|quote }}
+  block:
+    - name: "Import the archzfs-repo-key from the Arch Linux keyserver"
+      command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                           pacman-key --recv-keys {{ arch_install_def_archzfs_repo_key|quote }}
+  rescue:
+    - name: "Import key from the Ubuntu keyserver, if Arch keyserver is down"
+      command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                           pacman-key --keyserver hkp://keyserver.ubuntu.com
+                                      --recv-keys {{ arch_install_def_archzfs_repo_key|quote }}
 
 - name: "Sign the imported archzfs-repo-key"
   command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
