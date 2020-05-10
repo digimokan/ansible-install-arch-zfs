@@ -1,20 +1,60 @@
-# Global Menu Options
+# GLOBAL MENU OPTIONS
 
 set timeout=5
 set default=0
 
-# Local Variables
+# LOCAL VARIABLES
 
+# find the zpool to mount to root
 set search_args="--label --set=root {{ grub_install_def_zpool_name }}"
-set stable_kernel="/ROOT/default/@/boot/vmlinuz-linux"
-set root_mount="zfs={{ grub_install_def_zpool_name }}/ROOT/default rw"
-set norm_initramfs="/ROOT/default/@/boot/initramfs-linux.img"
 
-# Menu Entries
+# select kernel to boot
+set stable_kernel="/ROOT/default/@/boot/vmlinuz-linux"
+set lts_kernel="/ROOT/default/@/boot/vmlinuz-linux"
+
+# select initramfs to boot
+set stable_norm_initramfs="/ROOT/default/@/boot/initramfs-linux.img"
+set stable_fallback_initramfs="/ROOT/default/@/boot/initramfs-linux-fallback.img"
+set lts_norm_initramfs="/ROOT/default/@/boot/initramfs-linux-lts.img"
+set lts_fallback_initramfs="/ROOT/default/@/boot/initramfs-linux-lts-fallback.img"
+
+# MENU ENTRIES
 
 menuentry "Arch Linux Stable ZFS Kernel (+ Normal Initramfs)" {
   search ${search_args}
-  linux ${stable_kernel} ${root_mount}
-  initrd ${norm_initramfs}
+  linux ${stable_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
+  initrd ${stable_norm_initramfs}
 }
+
+menuentry "Arch Linux Stable ZFS Kernel (+ Fallback Initramfs)" {
+  search ${search_args}
+  linux ${stable_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
+  initrd ${stable_fallback_initramfs}
+}
+
+menuentry "Arch Linux LTS ZFS Kernel (+ Normal Initramfs)" {
+  search ${search_args}
+  linux ${lts_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
+  initrd ${lts_norm_initramfs}
+}
+
+menuentry "Arch Linux LTS ZFS Kernel (+ Fallback Initramfs)" {
+  search ${search_args}
+  linux ${lts_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
+  initrd ${lts_fallback_initramfs}
+}
+
+menuentry "Shutdown System" {
+  halt
+}
+
+menuentry "Reboot System" {
+  reboot
+}
+
+if [ ${grub_platform} == "efi" ]; then
+  menuentry "EFI Firmware Setup" {
+    fwsetup
+  }
+fi
 
