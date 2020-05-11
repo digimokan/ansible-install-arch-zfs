@@ -59,7 +59,11 @@ menuentry "Arch Linux LTS ZFS Kernel (+ Fallback Initramfs)" {
 }
 
 menuentry "Shutdown System" {
-  halt
+  if [ ${grub_platform} == "efi" ]; then
+    halt --no-apm
+  else
+    halt
+  fi
 }
 
 menuentry "Reboot System" {
