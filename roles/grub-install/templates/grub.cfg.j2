@@ -18,28 +18,42 @@ set stable_fallback_initramfs="/ROOT/default/@/boot/initramfs-linux-fallback.img
 set lts_norm_initramfs="/ROOT/default/@/boot/initramfs-linux-lts.img"
 set lts_fallback_initramfs="/ROOT/default/@/boot/initramfs-linux-lts-fallback.img"
 
+# LOCAL FUNCTIONS
+
+function preload_config {
+  search ${search_args}
+  if [ ${grub_platform} == "efi" ]; then
+    loadfont "unicode"
+    set gfxmode=auto
+    set gfxpayload=keep
+    insmod all_video
+    insmod gfxterm
+    terminal_output gfxterm
+  fi
+}
+
 # MENU ENTRIES
 
 menuentry "Arch Linux Stable ZFS Kernel (+ Normal Initramfs)" {
-  search ${search_args}
+  preload_config
   linux ${stable_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
   initrd ${stable_norm_initramfs}
 }
 
 menuentry "Arch Linux Stable ZFS Kernel (+ Fallback Initramfs)" {
-  search ${search_args}
+  preload_config
   linux ${stable_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
   initrd ${stable_fallback_initramfs}
 }
 
 menuentry "Arch Linux LTS ZFS Kernel (+ Normal Initramfs)" {
-  search ${search_args}
+  preload_config
   linux ${lts_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
   initrd ${lts_norm_initramfs}
 }
 
 menuentry "Arch Linux LTS ZFS Kernel (+ Fallback Initramfs)" {
-  search ${search_args}
+  preload_config
   linux ${lts_kernel} zfs={{ grub_install_def_zpool_name }}/ROOT/default rw
   initrd ${lts_fallback_initramfs}
 }

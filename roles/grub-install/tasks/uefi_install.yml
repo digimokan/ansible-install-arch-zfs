@@ -13,3 +13,8 @@
     boot_partlabel: "{{ grub_install_def_device_2_boot_partlabel }}"
   when: grub_install_def_device_2_boot_partlabel != ""
 
+- name: "Copy GRUB unicode font from /usr/share to /boot/grub"
+  copy:
+    src: "{{ grub_install_def_arch_chroot_dir }}/usr/share/grub/unicode.pf2"
+    dest: "{{ grub_install_def_arch_chroot_dir }}/boot/grub/unicode.pf2"
+

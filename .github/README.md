@@ -159,6 +159,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 │ │ ├── archiso-config/   # performs initial config of the live USB OS
 │ │ ├── dataset-creation/ # creates reasonable set of system/user datasets
 │ │ ├── disk-format/      # formats install disk(s) with boot/zfs partitions
+│ │ ├── grub-install/     # install GRUB bootloader to boot partition(s)
 │ │ ├── play-fact-set/    # initial calc/set of play-wide vars
 │ │ ├── pool-creation/    # creates zpool on the install disk(s)
 │ │ ├── post-install/     # clean up and finalize the installation
