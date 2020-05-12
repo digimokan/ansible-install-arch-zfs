@@ -1,0 +1,6 @@
+- name: "Set the root password, from user-input or vars file"
+  command:
+    cmd: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                     chpasswd
+    stdin: "root:{{ arch_install_def_root_password }}"
+

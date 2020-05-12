@@ -1,0 +1,5 @@
+- name: "Regenerate initramfs images, using hostid and mkinitcpio.conf settings"
+  # -P: create norm/fallback images for all kernels (zfs-linux, zfs-linux-lts)
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       mkinitcpio -P
+

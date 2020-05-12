@@ -6,8 +6,7 @@
   include_tasks: gen_fstab.yml
 
 - name: "Run 'pacstrap' cmd to install base system (without kernels or initramfs)"
-  command: pacstrap {{ arch_install_def_arch_chroot_dir|quote }}
-                    base base-devel
+  command: pacstrap {{ arch_install_def_arch_chroot_dir|quote }} base base-devel
 
 - name: "Set the hardware clock, system clock, and time zone"
   include_tasks: set_time.yml
@@ -25,8 +24,15 @@
   include_tasks: add_archzfs.yml
 
 - name: "Set the root password"
-  command:
-    cmd: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-                     chpasswd
-    stdin: "root:{{ arch_install_def_root_password }}"
+  include_tasks: set_root_pass.yml
+
+- name: "Enable systemd zfs services for pool-importing, mounts, zpool-cache"
+  include_tasks: systemd_zfs.yml
+
+- name: "Set the hostid"
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       zgenhostid $(hostid)
+
+- name: "Regenerate all initramfs images"
+  include_tasks: gen_initramfs.yml
 

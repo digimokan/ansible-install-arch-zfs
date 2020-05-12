@@ -50,8 +50,3 @@
     line: "HOOKS=(base udev autodetect modconf block keyboard zfs usr filesystems shutdown)"
     state: present
 
-- name: "Regenerate initramfs images, using the new settings in mkinitcpio.conf"
-  # -P: create norm/fallback images for all kernels (zfs-linux, zfs-linux-lts)
-  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-                       mkinitcpio -P
-
