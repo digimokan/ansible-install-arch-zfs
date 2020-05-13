@@ -1,0 +1,9 @@
+- name: "Determine hostid of the new machine"
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       hostid
+  register: hostid_string
+
+- name: "Create /etc/hostid on new machine, and store hostid in it"
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
+                       zgenhostid {{ hostid_string.stdout|quote }}
+

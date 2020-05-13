@@ -30,8 +30,7 @@
   include_tasks: systemd_zfs.yml
 
 - name: "Set the hostid"
-  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
-                       zgenhostid $(hostid)
+  include_tasks: set_hostid.yml
 
 - name: "Regenerate all initramfs images"
   include_tasks: gen_initramfs.yml
