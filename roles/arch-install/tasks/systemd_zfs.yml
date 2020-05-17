@@ -1,16 +1,18 @@
-- name: "Enable systemd zfs.target, for auto-pool-mounting and setting hostid"
-  command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
-                     enable zfs.target
+- name: "Enable systemd units that import zpools automatically at boot time"
+  block:
+    - name: "Enable systemd zfs-import-cache service"
+      command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
+                         enable zfs-import-cache
+    - name: "Enable systemd zfs-import.target"
+      command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
+                         enable zfs-import.target
 
-- name: "Enable systemd zfs-import-cache service"
-  command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
-                     enable zfs-import-cache
-
-- name: "Enable systemd zfs-mount service"
-  command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
-                     enable zfs-mount
-
-- name: "Enable systemd zfs-import.target"
-  command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
-                     enable zfs-import.target
+- name: "Enable systemd units that mount zfs datasets at boot time"
+  block:
+    - name: "Enable systemd zfs.target"
+      command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
+                         enable zfs.target
+    - name: "Enable systemd zfs-mount service"
+      command: systemctl --root={{ arch_install_def_arch_chroot_dir|quote }}
+                         enable zfs-mount
 
