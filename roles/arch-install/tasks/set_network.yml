@@ -1,5 +1,5 @@
 - name: "Install 'networkmanager' package to chroot"
-  command: arch-chroot {{ grub_install_def_arch_chroot_dir|quote }}
+  command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                        pacman --noconfirm -S networkmanager
 
 - name: "Enable systemd NetworkManager service"
