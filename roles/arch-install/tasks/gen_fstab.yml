@@ -16,3 +16,15 @@
     content: "{{ genfstab_out.stdout }}\n\n"
     dest: "{{ arch_install_def_arch_chroot_dir }}/etc/fstab"
 
+- name: "Remove 'legacy' zfs entries from /etc/fstab"
+  lineinfile:
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc/fstab"
+    regexp: '\bzfs\b'
+    state: absent
+
+- name: "Remove blank lines from /etc/fstab"
+  lineinfile:
+    path: "{{ arch_install_def_arch_chroot_dir }}/etc/fstab"
+    regexp: '^$'
+    state: absent
+
