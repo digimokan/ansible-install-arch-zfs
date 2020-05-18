@@ -39,7 +39,7 @@
 
 - name: "Install 'zfs-linux' and 'zfs-linux-lts' kernel packages to chroot"
   # note: installing kernels will trigger initramfs generation via pacman hook
-  # note: initramfs will be rebuilt below, but this cmd creates mkinitcpio.conf
+  # note: initramfs will be rebuilt later, but this cmd creates mkinitcpio.conf
   command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                        pacman --noconfirm -S archzfs-linux archzfs-linux-lts
 

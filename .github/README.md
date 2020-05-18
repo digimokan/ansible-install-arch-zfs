@@ -8,7 +8,9 @@ Ansible script that installs zfs-based Arch Linux from archiso.
 ## Table Of Contents
 
 * [Motivation](#motivation)
-* [Features](#features)
+* [Installation Script Actions](#installation-script-actions)
+* [Installation Script Customization](#installation-script-customization)
+* [Post-Installation](#post-installation)
 * [Requirements](#requirements)
 * [Quick Start](#quick-start)
 * [Full Usage / Options](#full-usage--options)
@@ -25,23 +27,37 @@ Base the _ansible_ script on the official Arch Linux
 (also consult guidance in the [Arch Linux Installation Guide](https://wiki.archlinux.org/index.php/Installation_guide)
 and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 
-## Features
+## Installation Script Actions
 
 * Installs to single hard drive, or two mirrored drives.
 * Auto-detects motherboard type (BIOS or UEFI).
 * Sets up _GRUB_ bootloader.
-* Uses the following zfs kernels:
+* Installs and enables [NetworkManager](https://wiki.archlinux.org/index.php/NetworkManager).
+* Configures booting of the following zfs kernels:
     * The `zfs-linux` stable kernel (default).
     * The `zfs-linux-lts` LTS kernel (selectable in _GRUB_ boot menu).
-* Customize the installation with these vars, using one of the
-  methods in [Full Usage / Options](#full-usage--options):
+
+## Installation Script Customization
+
+* Define required/optional vars using one of the methods in
+  [Full Usage / Options](#full-usage--options).
+* Required vars:
+    * `user_var_install_devices` (an _ansible_ list, e.g. - "sda")
+    * `user_var_root_password` (_ansible_ will prompt for this, if not defined)
+* Optional vars (have default values, and may be overridden):
+    * `user_var_zpool_name` (e.g. "zpool_alpha")
     * `arch_install_def_time_zone_file` (e.g. "Canada/Central")
     * `arch_install_def_locale` (e.g. "en_US.UTF-8")
     * `arch_install_def_keymap` (e.g. "us")
     * `arch_install_def_hostname` (e.g. "omegarig")
-    * `user_var_zpool_name` (e.g. "zpool_alpha")
-    * `user_var_root_password` (ansible will prompt for this, if not defined)
-* Post-installation, the machine is bootable and ready for configuration at the
+
+## Post-Installation
+
+* The machine is now bootable and will connect via wired network interface.
+* _NOTE: all systemd zfs integration tasks listed in the
+  [Arch Linux ZFS Install Guide](https://wiki.archlinux.org/index.php/Install_Arch_Linux_on_ZFS#After_the_first_boot)
+  are completed automatically by the script._
+* The machine is now ready for normal user-level configuration, at the
   [Arch Linux Post-Installation](https://wiki.archlinux.org/index.php/Installation_guide#Post-installation)
   step.
 
