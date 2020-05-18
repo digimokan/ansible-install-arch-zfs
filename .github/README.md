@@ -30,12 +30,16 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
 ## Installation Script Actions
 
 * Installs to single hard drive, or two mirrored drives.
-* Auto-detects motherboard type (BIOS or UEFI).
-* Sets up _GRUB_ bootloader.
+* Auto-detects motherboard type
+  ([BIOS](https://wiki.archlinux.org/index.php/Arch_boot_process#BIOS) or
+   [UEFI](https://wiki.archlinux.org/index.php/Arch_boot_process#UEFI)).
+* Sets up [GRUB](https://wiki.archlinux.org/index.php/GRUB) bootloader.
 * Installs and enables [NetworkManager](https://wiki.archlinux.org/index.php/NetworkManager).
-* Configures booting of the following zfs kernels:
-    * The `zfs-linux` stable kernel (default).
-    * The `zfs-linux-lts` LTS kernel (selectable in _GRUB_ boot menu).
+* Configures booting of the following
+  [archzfs kernels](https://github.com/archzfs/archzfs/wiki):
+    * The `zfs-linux` stable kernel (via `archzfs-linux` package): default.
+    * The `zfs-linux-lts` LTS kernel (via `archzfs-linux-lts` package):
+      selectable in _GRUB_ boot menu.
 
 ## Installation Script Customization
 
