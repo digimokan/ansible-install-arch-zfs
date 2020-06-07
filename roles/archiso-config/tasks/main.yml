@@ -3,37 +3,45 @@
     name: systemd-timesyncd
     state: started
 
-- name: "Sync pacman package database"
+- name: "Sync pacman package database (with -Sy)"
   pacman:
     update_cache: yes
     update_cache_extra_args: "--noconfirm"
 
-- name: "Update mirror-server-list on the archiso live USB with fastest servers"
+- name: "Check live USB mirror-server-list file by its modified-time"
+  find:
+    paths: "{{ archiso_config_var_mirrors_dir }}"
+    patterns: '^mirrorlist$'
+    use_regex: yes
+    age: "{{ archiso_config_var_mirror_file_age }}"
+  register: mirrors_found
+
+- name: "Update live USB mirror-server-list if it is too old"
   block:
     - name: "Install reflector package"
       pacman:
         name: reflector
         state: present
-    - name: "Check if the mirror-server-list backup copy already exists"
-      stat:
-        path: "{{ mirror_list_bkup }}"
-      register: bkup_file
-    - name: "Create backup copy of mirror-list, if it does not exist"
+    - name: "Create backup copy of mirror-list"
       copy:
-        src: "{{ mirror_list }}"
-        dest: "{{ mirror_list_bkup }}"
-      when: bkup_file.stat.exists == false
-    - name: "Find fastest servers, and replace the current archiso mirror-list"
+        src: "{{ mirrors_file }}"
+        dest: "{{ mirrors_bkup }}"
+        force: yes
+    - name: "Find fastest servers, and replace the current mirror-list"
       command: reflector --country 'United States'
                          --latest '200'
                          --protocol 'http'
                          --protocol 'https'
                          --sort 'rate'
-                         --save {{ mirror_list|quote }}
-      when: bkup_file.stat.exists == false
+                         --save {{ mirrors_file|quote }}
+    - name: "Sync pacman package database (with -Syy)"
+      pacman:
+        update_cache: yes
+        force: yes
   vars:
-    mirror_list: "/etc/pacman.d/mirrorlist"
-    mirror_list_bkup: "{{ mirror_list }}_bkup"
+    mirrors_file: "{{ archiso_config_var_mirrors_dir }}/{{ archiso_config_var_mirrors_file }}"
+    mirrors_bkup: "{{ archiso_config_var_mirrors_dir }}/{{ archiso_config_var_mirrors_bkup }}"
+  when: mirrors_found.matched > 0
 
 - name: "Unmount EFI boot partition from '[chroot]/efi', if it is mounted"
   # note: this task allows playbook to be run multiple times, with idempotence

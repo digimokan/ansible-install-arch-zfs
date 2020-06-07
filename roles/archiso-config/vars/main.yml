@@ -1,0 +1,12 @@
+################################################################################
+# var variables: may be overriden, but serve mostly as constants
+################################################################################
+
+# the local machine's list of Arch Linux package-mirror servers
+archiso_config_var_mirrors_dir: "/etc/pacman.d"
+archiso_config_var_mirrors_file: "mirrorlist"
+archiso_config_var_mirrors_bkup: "mirrorlist_bkup"
+
+# update the mirror-list if it is older than this criteria
+archiso_config_var_mirror_file_age: "1d"
+
