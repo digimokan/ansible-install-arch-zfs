@@ -54,6 +54,8 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
     * `arch_install_def_locale` (e.g. "en_US.UTF-8")
     * `arch_install_def_keymap` (e.g. "us")
     * `arch_install_def_hostname` (e.g. "omegarig")
+* Optional vars (for optional actions, when defined):
+    * `user_var_bootstrap_git_repo` (repo to clone and place in `/root`)
 
 ## Post-Installation
 

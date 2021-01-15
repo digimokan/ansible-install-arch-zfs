@@ -16,6 +16,10 @@
 # note: if not defined via one of the methods above, ansible will prompt for this
 # user_var_root_password: "mypassword123"
 
+# optional git repo to clone and place in /root dir of new machine
+# skipped if not defined
+user_var_bootstrap_git_repo: "https://github.com/user/some_repo.git"
+
 # zpool name
 user_var_zpool_name: "zroot"
 

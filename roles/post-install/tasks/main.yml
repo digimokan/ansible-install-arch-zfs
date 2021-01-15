@@ -1,3 +1,9 @@
+- name: "Clone user-defined repo and place in `/root`"
+  git:
+    repo: "{{ user_var_bootstrap_git_repo }}"
+    dest: "{{ post_install_def_arch_chroot_dir }}/root/{{ user_var_bootstrap_git_repo | splitext | first }}"
+  when: user_var_bootstrap_git_repo is defined
+
 - name: "Re-sync kernel-recognized disk partition(s)"
   command: partprobe
 
