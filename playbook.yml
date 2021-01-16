@@ -79,5 +79,4 @@
       prompt: "Enter the new system root-user password"
       private: yes
       confirm: yes
-      when: user_var_root_password is not defined
 

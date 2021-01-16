@@ -12,10 +12,6 @@
 # user_var_install_devices:
 #   - "sda"
 
-# root-user password of the new machine
-# note: if not defined via one of the methods above, ansible will prompt for this
-# user_var_root_password: "mypassword123"
-
 # optional git repo to clone and place in /root dir of new machine
 # skipped if not defined
 user_var_bootstrap_git_repo: "https://github.com/user/some_repo.git"

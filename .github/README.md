@@ -47,7 +47,6 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
   [Full Usage / Options](#full-usage--options).
 * Required vars:
     * `user_var_install_devices` (an _ansible_ list, e.g. - "sda")
-    * `user_var_root_password` (_ansible_ will prompt for this, if not defined)
 * Optional vars (have default values, and may be overridden):
     * `user_var_zpool_name` (e.g. "zpool_alpha")
     * `arch_install_def_time_zone_file` (e.g. "Canada/Central")
