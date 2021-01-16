@@ -14,7 +14,13 @@
 
 # optional git repo to clone and place in /root dir of new machine
 # skipped if not defined
-user_var_bootstrap_git_repo: "https://github.com/user/some_repo.git"
+# user_var_bootstrap_git_repo: "https://github.com/user/some_repo.git"
+
+# optional list of extra packages to install on new machine
+# skipped if not defined
+# user_var_extra_packages:
+  # - "git"
+  # - "ansible"
 
 # zpool name
 user_var_zpool_name: "zroot"

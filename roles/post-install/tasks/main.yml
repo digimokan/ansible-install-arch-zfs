@@ -1,3 +1,8 @@
+- name: "Install optional user-defined packages to live USB"
+  command: arch-chroot {{ post_install_def_arch_chroot_dir|quote }}
+                       pacman --noconfirm -S {{ user_var_extra_packages | join(" ") }}
+  when: user_var_extra_packages is defined
+
 - name: "Clone optional user-defined repo and place in `/root`"
   git:
     repo: "{{ user_var_bootstrap_git_repo }}"

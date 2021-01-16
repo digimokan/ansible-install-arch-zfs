@@ -55,6 +55,7 @@ and the [Arch Linux ZFS](https://wiki.archlinux.org/index.php/ZFS) pages)
     * `arch_install_def_hostname` (e.g. "omegarig")
 * Optional vars (for optional actions, when defined):
     * `user_var_bootstrap_git_repo` (repo to clone and place in `/root`)
+    * `user_var_extra_packages` (extra packages to install to new machine)
 
 ## Post-Installation
 
