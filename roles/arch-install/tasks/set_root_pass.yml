@@ -1,4 +1,4 @@
-- name: "Set the root password, from user-input or vars file"
+- name: "Set the root password, from vars_prompt user-input"
   command:
     cmd: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                      chpasswd
