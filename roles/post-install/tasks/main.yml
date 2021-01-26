@@ -3,12 +3,20 @@
                        pacman --noconfirm -S {{ user_var_extra_packages | join(" ") }}
   when: user_var_extra_packages is defined
 
-- name: "Clone optional user-defined repo and place in `/root`"
+- name: "Clone optional user-defined repo and place in new machine `/root`"
   git:
     repo: "{{ user_var_bootstrap_git_repo }}"
     dest: "{{ post_install_def_arch_chroot_dir }}/root/\
            {{ user_var_bootstrap_git_repo | urlsplit('path') | basename | splitext | first }}"
   when: user_var_bootstrap_git_repo is defined
+
+- name: "Copy updated archiso mirror-list into new machine"
+  copy:
+    src: "{{ mirrors_file }}"
+    dest: "{{ post_install_def_arch_chroot_dir }}{{ mirrors_file }}"
+    force: yes
+  vars:
+    mirrors_file: "/etc/pacman.d/mirrorlist"
 
 - name: "Re-sync kernel-recognized disk partition(s)"
   command: partprobe
