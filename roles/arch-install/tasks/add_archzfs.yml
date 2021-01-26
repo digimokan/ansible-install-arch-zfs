@@ -13,14 +13,16 @@
   command: arch-chroot {{ arch_install_def_arch_chroot_dir|quote }}
                        pacman-key --lsign-key {{ arch_install_def_archzfs_repo_key|quote }}
 
-- name: "Add 'zfs-linux' repo as first-priority repo in pacman.conf"
+- name: "Add 'zfs-kernels' repos as first-priority repos in pacman.conf"
   blockinfile:
     path: "{{ arch_install_def_arch_chroot_dir }}/etc/pacman.conf"
     insertbefore: '^\[core\]$'
     block: |
       [zfs-linux]
-      Server = http://kernels.archzfs.com/$repo
-    marker: "# {mark} ANSIBLE MANAGED BLOCK: zfs-linux"
+      Server = http://kernels.archzfs.com/$repo/
+      [zfs-linux-lts]
+      Server = http://kernels.archzfs.com/$repo/
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: zfs-kernels"
     state: present
 
 - name: "Add 'archzfs' repo as last-priority repo in pacman.conf"
