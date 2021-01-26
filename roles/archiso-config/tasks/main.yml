@@ -29,9 +29,11 @@
         force: yes
     - name: "Find fastest servers, and replace the current mirror-list"
       command: reflector --country 'United States'
-                         --latest '200'
+                         --latest '20'
+                         --age '12'
                          --protocol 'https'
                          --sort 'rate'
+                         --fastest '10'
                          --save {{ mirrors_file|quote }}
     - name: "Sync pacman package database (with -Syy)"
       pacman:
